@@ -2,115 +2,111 @@
 <html lang="pt">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mindalizer • Assistente</title>
   <style>
-    :root {
-      --bg:#0b1020;
-      --panel:#0f172a;
-      --muted:#94a3b8;
-      --bubble-user:#2563eb;
-      --bubble-bot:#1f2937;
-      --accent:#22d3ee;
-      --ring: rgba(34,211,238,.35);
+    :root{
+      --bg:#0b1020; --panel:#0f172a; --muted:#94a3b8;
+      --bubble-user:#2563eb; --bubble-bot:#1f2937;
+      --accent:#22d3ee; --ring:rgba(34,211,238,.35)
     }
     *{box-sizing:border-box}
     body{
-      margin:0;
+      margin:0; color:#e5e7eb; font-size:18px;
+      font-family: system-ui,-apple-system,"Segoe UI",Roboto,Ubuntu,"Noto Sans",Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
       background:
         radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.08), transparent 40%),
         radial-gradient(1000px 500px at 100% 0%, rgba(37,99,235,.08), transparent 40%),
         var(--bg);
-      color:#e5e7eb;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      font-size:18px;
       display:grid; grid-template-rows:auto 1fr auto; height:100vh;
     }
     header{
       display:flex; align-items:center; gap:12px;
       padding:14px 18px; border-bottom:1px solid #1f2937;
-      background:rgba(17,24,39,.8); backdrop-filter: blur(8px);
+      background:rgba(17,24,39,.85); backdrop-filter:blur(8px);
       position:sticky; top:0; z-index:10; box-shadow:0 6px 24px rgba(0,0,0,.25);
     }
-    header h1{font-size:16px; margin:0}
-    header span{color:var(--muted); font-size:12px}
-    #chat{
+    header h1{margin:0; font-size:16px; font-weight:700}
+    header .sub{color:var(--muted); font-size:12px}
+    header .spacer{flex:1}
+    .brand{height:24px; width:auto; object-fit:contain}
+    main#chat{
       padding:22px; overflow-y:auto; display:flex; flex-direction:column; gap:12px;
-      max-width:900px; width:100%; margin:0 auto;
-      font-size:18px;
+      width:100%; max-width:920px; margin:0 auto;
     }
     .row{display:flex}
     .row.user{justify-content:flex-end}
     .msg{
-      max-width:78ch; padding:12px 14px; border-radius:14px;
-      line-height:1.5; white-space:pre-wrap; word-wrap:break-word;
+      max-width:78ch; padding:14px 16px; border-radius:16px;
+      line-height:1.55; white-space:pre-wrap; word-wrap:break-word;
       box-shadow:0 6px 14px rgba(0,0,0,.18);
     }
-    .user .msg{background:var(--bubble-user); color:#fff; border-bottom-right-radius:6px}
-    .bot .msg{background:var(--bubble-bot); color:#e5e7eb; border-bottom-left-radius:6px}
+    .user .msg{background:var(--bubble-user); color:#fff; border-bottom-right-radius:8px}
+    .bot  .msg{background:var(--bubble-bot);  color:#e5e7eb; border-bottom-left-radius:8px}
     .typing{display:inline-flex; gap:4px; align-items:center}
-    .dotty{width:6px;height:6px;border-radius:999px;background:#94a3b8;opacity:.6;animation:blink 1.2s infinite ease-in-out}
-    .dotty:nth-child(2){animation-delay:.2s}.dotty:nth-child(3){animation-delay:.4s}
+    .dot{width:6px;height:6px;background:#94a3b8;border-radius:999px;opacity:.4;animation:blink 1.2s infinite}
+    .dot:nth-child(2){animation-delay:.2s}.dot:nth-child(3){animation-delay:.4s}
     @keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:.9}}
-    .inputbar{
+    .bar{
       display:flex; gap:10px; padding:14px 18px; border-top:1px solid #1f2937;
-      background:rgba(17,24,39,.8); backdrop-filter: blur(8px);
+      background:rgba(17,24,39,.85); backdrop-filter:blur(8px)
     }
-    .inputbar input{
+    .bar input{
       flex:1; padding:14px 16px; border-radius:14px; border:1px solid #374151;
-      background:#0b1220; color:#e5e7eb; outline:none; box-shadow:0 0 0 0 var(--ring); font-size:18px;
+      background:#0b1220; color:#e5e7eb; outline:none; font-size:18px;
+      box-shadow:0 0 0 0 var(--ring)
     }
-    .inputbar input:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--ring)}
-    .inputbar button{
-      padding:12px 18px; border:none; border-radius:12px;
-      background:linear-gradient(180deg,#3b82f6,#2563eb); color:#fff; cursor:pointer; font-weight:600;
-      box-shadow:0 10px 20px rgba(37,99,235,.25); transition:transform .06s ease; font-size:18px;
+    .bar input:focus{border-color:var(--accent); box-shadow:0 0 0 3px var(--ring)}
+    .bar button{
+      padding:12px 18px; border:none; border-radius:12px; font-size:18px; font-weight:700;
+      background:linear-gradient(180deg,#3b82f6,#2563eb); color:#fff; cursor:pointer;
+      box-shadow:0 10px 20px rgba(37,99,235,.25); transition:transform .06s ease
     }
-    .inputbar button:active{transform:translateY(1px)}
+    .bar button:active{transform:translateY(1px)}
     footer{padding:8px 14px; color:var(--muted); font-size:12px; text-align:center}
   </style>
 </head>
 <body>
   <header>
-    <img id="logoLeft" alt="Magomar" src="" style="height:24px;width:auto;object-fit:contain" />
+    <img id="logoLeft"  class="brand" alt="Magomar" />
     <div>
       <h1>Mindalizer • Assistente</h1>
-      <span>Conversa demo ligada ao webhook n8n</span>
+      <div class="sub">Conversa demo ligada ao webhook n8n</div>
     </div>
-    <img id="logoRight" alt="Mindalizer" src="" style="height:24px;width:auto;object-fit:contain;margin-left:auto" />
+    <div class="spacer"></div>
+    <img id="logoRight" class="brand" alt="Mindalizer" />
   </header>
 
   <main id="chat" aria-live="polite"></main>
 
-  <div class="inputbar">
+  <div class="bar">
     <input id="text" type="text" placeholder="Escreve a tua mensagem…" autocomplete="off" />
     <button id="send">Enviar</button>
   </div>
 
-  <footer>
-    Dica: se não aparecer resposta, confirma o fluxo no n8n e CORS.
-  </footer>
+  <footer>Dica: se não aparecer resposta, confirma o fluxo no n8n e CORS.</footer>
 
   <script>
-    // URL do teu webhook (production)
+    // 👉 CONFIGURAÇÃO
     const WEBHOOK_URL = 'https://mindalizerai.app.n8n.cloud/webhook/d51a65db-fa9f-462e-9ff2-20a728c0e97e';
 
-    // URLs dos logótipos (substitui por URLs reais)
-    const LOGO_LEFT_URL  = 'https://raw.githubusercontent.com/rasp77/assets/main/magomar-logo.png';
-    const LOGO_RIGHT_URL = 'https://raw.githubusercontent.com/rasp77/assets/main/mindalizer-logo.png';
+    // Substitui por PNGs oficiais (URLs públicas). Estes são apenas exemplos:
+    const LOGO_LEFT_URL  = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder.png';   // Magomar (trocar)
+    const LOGO_RIGHT_URL = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder.png';   // Mindalizer (trocar)
 
     // aplica logos
     window.addEventListener('DOMContentLoaded', () => {
       const L = document.getElementById('logoLeft');
       const R = document.getElementById('logoRight');
-      if (L && LOGO_LEFT_URL)  L.src = LOGO_LEFT_URL;
-      if (R && LOGO_RIGHT_URL) R.src = LOGO_RIGHT_URL;
+      if (LOGO_LEFT_URL)  L.src = LOGO_LEFT_URL;
+      if (LOGO_RIGHT_URL) R.src = LOGO_RIGHT_URL;
     });
 
     // helpers
     const $ = (id) => document.getElementById(id);
     const chat = $('chat'), input = $('text'), btn = $('send');
 
+    // session id estável para memória no n8n
     const sessionId = (() => {
       const k = 'mindalizer_session_id';
       let v = localStorage.getItem(k);
@@ -118,9 +114,10 @@
       return v;
     })();
 
-    const historyKey = 'mindalizer_chat_history';
-    const loadHistory = () => JSON.parse(localStorage.getItem(historyKey) || '[]');
-    const saveHistory = (h) => localStorage.setItem(historyKey, JSON.stringify(h));
+    // histórico local (opcional)
+    const HKEY = 'mindalizer_chat_history';
+    const loadH = () => JSON.parse(localStorage.getItem(HKEY) || '[]');
+    const saveH = (h) => localStorage.setItem(HKEY, JSON.stringify(h));
 
     function addMsg(text, who='bot'){
       const row = document.createElement('div'); row.className = `row ${who}`;
@@ -128,27 +125,26 @@
       row.appendChild(bubble); chat.appendChild(row); chat.scrollTop = chat.scrollHeight;
     }
 
-    let typingRow = null;
+    let typingEl = null;
     function showTyping(){
-      typingRow = document.createElement('div'); typingRow.className = 'row bot';
-      const bubble = document.createElement('div'); bubble.className = 'msg';
+      typingEl = document.createElement('div'); typingEl.className = 'row bot';
+      const b = document.createElement('div'); b.className = 'msg';
       const dots = document.createElement('span'); dots.className = 'typing';
-      dots.innerHTML = '<span class="dotty"></span><span class="dotty"></span><span class="dotty"></span>';
-      bubble.appendChild(dots); typingRow.appendChild(bubble); chat.appendChild(typingRow); chat.scrollTop = chat.scrollHeight;
+      dots.innerHTML = '<span class="dot"></span><span class="dot"></span><span class="dot"></span>';
+      b.appendChild(dots); typingEl.appendChild(b); chat.appendChild(typingEl); chat.scrollTop = chat.scrollHeight;
     }
-    function hideTyping(){ if(typingRow){ typingRow.remove(); typingRow=null; } }
+    function hideTyping(){ if(typingEl){ typingEl.remove(); typingEl=null; } }
 
     async function send(){
       const text = input.value.trim(); if(!text) return;
       input.value=''; btn.disabled=true; addMsg(text,'user');
-
-      const hist = loadHistory(); hist.push({who:'user', text}); saveHistory(hist);
+      const hist = loadH(); hist.push({who:'user', text}); saveH(hist);
 
       showTyping();
       try{
         const res = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
           body: JSON.stringify({ message: text, sessionId })
         });
         const ct = res.headers.get('content-type') || '';
@@ -160,9 +156,9 @@
           botText = await res.text();
         }
         hideTyping(); addMsg(botText || 'Sem resposta disponível.');
-        const h2 = loadHistory(); h2.push({who:'bot', text: botText}); saveHistory(h2);
+        const h2 = loadH(); h2.push({who:'bot', text: botText}); saveH(h2);
       } catch(e){
-        hideTyping(); addMsg('Erro ao contactar o servidor.', 'bot');
+        hideTyping(); addMsg('Erro ao contactar o servidor. Verifica CORS/URL.', 'bot');
       } finally {
         btn.disabled=false; input.focus();
       }
@@ -171,10 +167,11 @@
     btn.addEventListener('click', send);
     input.addEventListener('keydown', (e)=>{ if(e.key==='Enter') send(); });
 
+    // boot
     (function init(){
-      const hist = loadHistory();
-      if(hist.length===0) addMsg('Olá! Sou o assistente da Mindalizer. Como posso ajudar?');
-      else hist.forEach(m=> addMsg(m.text, m.who));
+      const h = loadH();
+      if(h.length===0) addMsg('Olá! Sou o assistente da Mindalizer. Como posso ajudar?');
+      else h.forEach(m=> addMsg(m.text, m.who));
       input.focus();
     })();
   </script>
