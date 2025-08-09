@@ -1,191 +1,42 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mindalizer • Chat</title>
-  <style>
-    :root {
-      --bg:#0f172a;          /* slate-900 */
-      --panel:#111827;       /* gray-900 */
-      --muted:#94a3b8;       /* slate-400 */
-      --bubble-user:#2563eb; /* blue-600 */
-      --bubble-bot:#1f2937;  /* gray-800 */
-      --accent:#22d3ee;      /* cyan-400 */
+:root {
+      --bg:#0b1020;
+      --panel:#0f172a;
+      --muted:#94a3b8;
+      --bubble-user:#2563eb;
+      --bubble-bot:#1f2937;
+      --accent:#22d3ee;
+      --ring: rgba(34,211,238,.35);
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; background: var(--bg); color: #e5e7eb;
+
+body {
+      margin: 0; background: radial-gradient(1200px 600px at 10% -10%, rgba(34,211,238,.08), transparent 40%), radial-gradient(1000px 500px at 100% 0%, rgba(37,99,235,.08), transparent 40%), var(--bg); color: #e5e7eb;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      font-size: 18px;
       display: grid; grid-template-rows: auto 1fr auto; height: 100vh;
     }
-    header {
-      display:flex; align-items:center; gap:.6rem; padding: 14px 16px; border-bottom: 1px solid #1f2937; background: var(--panel);
+
+header {
+      display:flex; align-items:center; gap:12px; padding: 14px 18px; border-bottom: 1px solid #1f2937; background: rgba(17,24,39,.8); backdrop-filter: blur(8px);
       position: sticky; top: 0; z-index: 10;
-    }
-    header .dot { width:10px; height:10px; border-radius:999px; background: var(--accent); box-shadow: 0 0 12px var(--accent); }
-    header h1 { font-size: 15px; margin: 0; }
-    header span { color: var(--muted); font-size: 12px; }
-
-    #chat {
-      padding: 18px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px;
-    }
-    .row { display:flex; }
-    .row.user { justify-content: flex-end; }
-    .msg {
-      max-width: 78ch; padding: 10px 12px; border-radius: 14px; line-height: 1.4; white-space: pre-wrap; word-wrap: break-word;
-      box-shadow: 0 6px 14px rgba(0,0,0,.18);
-    }
-    .user .msg { background: var(--bubble-user); color: #fff; border-bottom-right-radius: 6px; }
-    .bot .msg  { background: var(--bubble-bot); color: #e5e7eb; border-bottom-left-radius: 6px; }
-
-    .typing { display:inline-flex; gap:4px; align-items:center; }
-    .dotty { width:6px; height:6px; border-radius:999px; background:#94a3b8; opacity:.6; animation: blink 1.2s infinite ease-in-out; }
-    .dotty:nth-child(2){ animation-delay:.2s } .dotty:nth-child(3){ animation-delay:.4s }
-    @keyframes blink { 0%,80%,100%{ opacity:.2 } 40%{ opacity:.9 } }
-
-    .inputbar { display:flex; gap:10px; padding: 12px; border-top: 1px solid #1f2937; background: var(--panel); }
-    .inputbar input {
-      flex: 1; padding: 12px 14px; border-radius: 12px; border: 1px solid #374151; background: #0b1220; color:#e5e7eb; outline: none;
-    }
-    .inputbar button {
-      padding: 12px 16px; border: none; border-radius: 12px; background: var(--bubble-user); color:#fff; cursor: pointer; font-weight: 600;
-    }
-    .inputbar button[disabled]{ opacity:.6; cursor:not-allowed }
-    footer { padding:8px 14px; color: var(--muted); font-size: 12px; text-align:center; }
-    a { color: var(--accent); text-decoration: none; }
-  </style>
-</head>
-<body>
-  <header>
-    <div class="dot"></div>
-    <div>
-      <h1>Mindalizer • Assistente</h1>
-      <span>Conversa demo ligada ao webhook n8n</span>
-    </div>
-  </header>
-
-  <main id="chat" aria-live="polite"></main>
-
-  <div class="inputbar">
-    <input id="text" type="text" placeholder="Escreve a tua mensagem…" autocomplete="off" />
-    <button id="send">Enviar</button>
-  </div>
-
-  <footer>
-    Dica: este front‑end precisa que o webhook permita CORS. Publica no GitHub Pages para evitar bloqueios do navegador.
-  </footer>
-
-  <script>
-    // 👉⚙️ CONFIGURAÇÃO
-    const WEBHOOK_URL = 'https://mindalizerai.app.n8n.cloud/webhook/d51a65db-fa9f-462e-9ff2-20a728c0e97e';
-
-    // Utilitários simples
-    const $ = (id) => document.getElementById(id);
-    const chat = $('chat');
-    const input = $('text');
-    const btn = $('send');
-
-    // Session ID básico para o bot (mantém contexto no n8n se precisares)
-    const sessionId = (() => {
-      const k = 'mindalizer_session_id';
-      let v = localStorage.getItem(k);
-      if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem(k, v); }
-      return v;
-    })();
-
-    // Historico local (opcional)
-    const historyKey = 'mindalizer_chat_history';
-    const loadHistory = () => JSON.parse(localStorage.getItem(historyKey) || '[]');
-    const saveHistory = (h) => localStorage.setItem(historyKey, JSON.stringify(h));
-
-    // Render mensagens
-    function addMsg(text, who='bot'){
-      const row = document.createElement('div');
-      row.className = `row ${who}`;
-      const bubble = document.createElement('div');
-      bubble.className = 'msg';
-      bubble.textContent = text;
-      row.appendChild(bubble);
-      chat.appendChild(row);
-      chat.scrollTop = chat.scrollHeight;
+      box-shadow: 0 6px 24px rgba(0,0,0,.25);
     }
 
-    // Indicador de escrita
-    let typingRow = null;
-    function showTyping(){
-      typingRow = document.createElement('div');
-      typingRow.className = 'row bot';
-      const bubble = document.createElement('div');
-      bubble.className = 'msg';
-      const dots = document.createElement('span');
-      dots.className = 'typing';
-      dots.innerHTML = '<span class="dotty"></span><span class="dotty"></span><span class="dotty"></span>';
-      bubble.appendChild(dots);
-      typingRow.appendChild(bubble);
-      chat.appendChild(typingRow);
-      chat.scrollTop = chat.scrollHeight;
-    }
-    function hideTyping(){ if(typingRow){ typingRow.remove(); typingRow=null; } }
-
-    // Enviar mensagem
-    async function send(){
-      const text = input.value.trim();
-      if(!text) return;
-      input.value = '';
-      btn.disabled = true;
-
-      // Render user
-      addMsg(text,'user');
-
-      // Update history
-      const hist = loadHistory();
-      hist.push({ who:'user', text });
-      saveHistory(hist);
-
-      // Call webhook
-      showTyping();
-      try{
-        const res = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: text, sessionId })
-        });
-
-        // Trata JSON ou texto
-        const ct = res.headers.get('content-type') || '';
-        let botText = '';
-        if (ct.includes('application/json')){
-          const data = await res.json();
-          botText = data.reply || data.message || data.output || data.response || JSON.stringify(data, null, 2);
-        } else {
-          botText = await res.text();
-        }
-        hideTyping();
-        addMsg(botText || 'Sem resposta disponível.');
-        const h2 = loadHistory(); h2.push({ who:'bot', text: botText }); saveHistory(h2);
-      } catch(e){
-        hideTyping();
-        addMsg('Erro a contactar o servidor. Verifica CORS/URL.', 'bot');
-      } finally {
-        btn.disabled = false; input.focus();
-      }
+#chat {
+      padding: 22px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; max-width: 900px; width: 100%; margin: 0 auto;
+      font-size: 18px;
     }
 
-    // Eventos UI
-    btn.addEventListener('click', send);
-    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter') send(); });
+.inputbar { display:flex; gap:10px; padding: 14px 18px; border-top: 1px solid #1f2937; background: rgba(17,24,39,.8); backdrop-filter: blur(8px); }
 
-    // Boot: mostra histórico se existir
-    (function init(){
-      const hist = loadHistory();
-      if(hist.length===0){
-        addMsg('Olá! Sou o assistente da Mindalizer. Como posso ajudar?');
-      } else {
-        hist.forEach(m=> addMsg(m.text, m.who));
-      }
-      input.focus();
-    })();
-  </script>
-</body>
-</html>
+.inputbar input {
+      flex: 1; padding: 14px 16px; border-radius: 14px; border: 1px solid #374151; background: #0b1220; color:#e5e7eb; outline: none; box-shadow: 0 0 0 0 var(--ring);
+      font-size: 18px;
+    }
+.inputbar input:focus{ border-color: var(--accent); box-shadow: 0 0 0 3px var(--ring);} 
+
+.inputbar button {
+      padding: 12px 18px; border: none; border-radius: 12px; background: linear-gradient(180deg,#3b82f6,#2563eb); color:#fff; cursor: pointer; font-weight: 600; box-shadow: 0 10px 20px rgba(37,99,235,.25);
+      transition: transform .06s ease;
+      font-size: 18px;
+    }
+.inputbar button:active{ transform: translateY(1px);}
