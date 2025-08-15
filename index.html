@@ -63,6 +63,10 @@
       box-shadow:0 10px 20px rgba(37,99,235,.25); transition:transform .06s ease
     }
     .bar button:active{transform:translateY(1px)}
+    .bar .ghost{
+      background:#0b1220; color:#e5e7eb; border:1px solid #374151;
+      box-shadow:none; font-weight:600;
+    }
     footer{padding:8px 14px; color:var(--muted); font-size:12px; text-align:center}
   </style>
 </head>
@@ -82,19 +86,22 @@
   <div class="bar">
     <input id="text" type="text" placeholder="Escreve a tua mensagem…" autocomplete="off" />
     <button id="send">Enviar</button>
+    <button id="reset" class="ghost" title="Começar nova conversa">Nova conversa</button>
   </div>
 
   <footer>Dica: se não aparecer resposta, confirma o fluxo no n8n e CORS.</footer>
 
   <script>
-    // 👉 CONFIGURAÇÃO
+    // CONFIGURAÇÃO
     const WEBHOOK_URL = 'https://mindalizerai.app.n8n.cloud/webhook/d51a65db-fa9f-462e-9ff2-20a728c0e97e';
 
-    // Substitui por PNGs oficiais (URLs públicas). Estes são apenas exemplos:
-    const LOGO_LEFT_URL  = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder.png';   // Magomar (trocar)
-    const LOGO_RIGHT_URL = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder.png';   // Mindalizer (trocar)
+    // Frase que indica fim de encomenda
+    const RESET_PHRASE = 'A sua encomenda foi registada com sucesso e enviada para a nossa equipa. Receberá um email com os detalhes em breve.';
 
-    // aplica logos
+    // Substitui por logos reais
+    const LOGO_LEFT_URL  = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder.png';
+    const LOGO_RIGHT_URL = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder.png';
+
     window.addEventListener('DOMContentLoaded', () => {
       const L = document.getElementById('logoLeft');
       const R = document.getElementById('logoRight');
@@ -104,18 +111,23 @@
 
     // helpers
     const $ = (id) => document.getElementById(id);
-    const chat = $('chat'), input = $('text'), btn = $('send');
+    const chat = $('chat'), input = $('text'), btn = $('send'), resetBtn = $('reset');
 
-    // session id estável para memória no n8n
-    const sessionId = (() => {
-      const k = 'mindalizer_session_id';
-      let v = localStorage.getItem(k);
-      if (!v) { v = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem(k, v); }
-      return v;
-    })();
-
-    // histórico local (opcional)
+    // gestão da sessão
+    const SKEY = 'mindalizer_session_id';
     const HKEY = 'mindalizer_chat_history';
+
+    const newSessionId = () =>
+      Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+    const getSessionId = () => {
+      let v = localStorage.getItem(SKEY);
+      if (!v) { v = newSessionId(); localStorage.setItem(SKEY, v); }
+      return v;
+    };
+
+    let sessionId = getSessionId();
+
     const loadH = () => JSON.parse(localStorage.getItem(HKEY) || '[]');
     const saveH = (h) => localStorage.setItem(HKEY, JSON.stringify(h));
 
@@ -134,6 +146,21 @@
       b.appendChild(dots); typingEl.appendChild(b); chat.appendChild(typingEl); chat.scrollTop = chat.scrollHeight;
     }
     function hideTyping(){ if(typingEl){ typingEl.remove(); typingEl=null; } }
+
+    function clearChatUI(){
+      chat.innerHTML = '';
+      addMsg('Olá! Sou o assistente da Mindalizer. Como posso ajudar?');
+    }
+
+    function hardReset(){
+      localStorage.removeItem(HKEY);
+      localStorage.removeItem(SKEY);
+      sessionId = newSessionId();
+      localStorage.setItem(SKEY, sessionId);
+      clearChatUI();
+      input.value = '';
+      input.focus();
+    }
 
     async function send(){
       const text = input.value.trim(); if(!text) return;
@@ -157,8 +184,16 @@
         }
         hideTyping(); addMsg(botText || 'Sem resposta disponível.');
         const h2 = loadH(); h2.push({who:'bot', text: botText}); saveH(h2);
+
+        // detecção do fim da encomenda e reset automático
+        if (botText && botText.includes(RESET_PHRASE)){
+          setTimeout(() => {
+            addMsg('Conversa finalizada. A iniciar nova conversa…');
+            setTimeout(hardReset, 900);
+          }, 600);
+        }
       } catch(e){
-        hideTyping(); addMsg('Erro ao contactar o servidor. Verifica CORS/URL.', 'bot');
+        hideTyping(); addMsg('Erro ao contactar o servidor. Verifica CORS e URL.', 'bot');
       } finally {
         btn.disabled=false; input.focus();
       }
@@ -166,8 +201,9 @@
 
     btn.addEventListener('click', send);
     input.addEventListener('keydown', (e)=>{ if(e.key==='Enter') send(); });
+    resetBtn.addEventListener('click', hardReset);
 
-    // boot
+    // arranque
     (function init(){
       const h = loadH();
       if(h.length===0) addMsg('Olá! Sou o assistente da Mindalizer. Como posso ajudar?');
