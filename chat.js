@@ -39,11 +39,49 @@ function init() {
     messageInput.addEventListener('input', handleInput);
     messageInput.addEventListener('keydown', handleKeydown);
 
-    // Focus input
-    messageInput.focus();
+    // Mobile keyboard handling
+    setupMobileKeyboardHandling();
+
+    // Focus input (delayed for mobile)
+    setTimeout(() => messageInput.focus(), 100);
 
     // Log initialization
     console.log('Magomar Chat initialized with session:', sessionId);
+}
+
+/**
+ * Handle mobile keyboard appearance
+ */
+function setupMobileKeyboardHandling() {
+    // Handle visual viewport resize (keyboard open/close)
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleViewportResize);
+    }
+
+    // Handle input focus - scroll to bottom when keyboard opens
+    messageInput.addEventListener('focus', () => {
+        setTimeout(() => {
+            scrollToBottom();
+            // Ensure input is visible
+            messageInput.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        }, 300);
+    });
+
+    // Handle input blur
+    messageInput.addEventListener('blur', () => {
+        // Small delay to let keyboard close
+        setTimeout(() => {
+            window.scrollTo(0, 0);
+        }, 100);
+    });
+}
+
+/**
+ * Handle viewport resize (keyboard open/close on mobile)
+ */
+function handleViewportResize() {
+    // Scroll to bottom when keyboard opens
+    setTimeout(scrollToBottom, 100);
 }
 
 /**
