@@ -5,7 +5,7 @@
 
 // Configuration
 const CONFIG = {
-    webhookUrl: 'https://mindalizerai.app.n8n.cloud/webhook/d51a65db-fa9f-462e-9ff2-20a728c0e97e',
+    webhookUrl: 'https://mindalizerai.app.n8n.cloud/webhook/70a5ae1c-2db4-4893-baf1-2abb076d42b0',
     maxRetries: 3,
     retryDelay: 1000,
     messageMaxLength: 2000
