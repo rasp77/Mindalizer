@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM-Readiness Assessment | Mindalizer</title>
+  <meta name="description" content="Is your website ready for AI? Get a free LLM-Readiness assessment with actionable insights to make your content discoverable by AI assistants.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --orange: #ff6900;
+      --orange-dark: #e55e00;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-800: #262626;
+      --gray-900: #171717;
+      --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--gray-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .header.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      height: 28px;
+      opacity: 0.95;
+    }
+
+    .header-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--white);
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .header-cta:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--black);
+      color: var(--white);
+      padding: 160px 32px 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255,105,0,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 24px;
+      padding: 6px 14px;
+      border: 1px solid rgba(255,105,0,0.3);
+      border-radius: 4px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--gray-400);
+      max-width: 540px;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      background: var(--orange);
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    .hero-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── How It Works ── */
+    .how-it-works {
+      padding: 100px 32px;
+      background: var(--white);
+    }
+
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--gray-500);
+      max-width: 560px;
+      margin-bottom: 64px;
+      line-height: 1.6;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--gray-100);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    .step-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .step-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--orange);
+    }
+
+    /* ── Assessment Section ── */
+    .assessment {
+      padding: 100px 32px;
+      background: var(--gray-50);
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .assessment-info h2 {
+      font-size: clamp(28px, 3.5vw, 36px);
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .assessment-info p {
+      font-size: 16px;
+      color: var(--gray-500);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      font-size: 15px;
+      color: var(--gray-600);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+
+    .info-list svg {
+      width: 18px;
+      height: 18px;
+      color: var(--orange);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* ── Form ── */
+    .form-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+    }
+
+    .form-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .form-card > p {
+      font-size: 14px;
+      color: var(--gray-500);
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-800);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--gray-800);
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,105,0,0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font);
+      color: var(--white);
+      background: var(--orange);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 8px;
+    }
+
+    .form-submit:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ── Chat Response Area ── */
+    .chat-response {
+      display: none;
+      margin-top: 24px;
+      padding: 24px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+    }
+
+    .chat-response.active {
+      display: block;
+    }
+
+    .chat-response-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .chat-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--gray-200);
+      border-top-color: var(--orange);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .chat-response-header span {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+    }
+
+    .chat-messages {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--gray-800);
+    }
+
+    .chat-messages p {
+      margin-bottom: 8px;
+    }
+
+    .chat-complete {
+      display: none;
+      margin-top: 16px;
+      padding: 16px;
+      background: rgba(255,105,0,0.06);
+      border: 1px solid rgba(255,105,0,0.15);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--gray-600);
+    }
+
+    .chat-complete svg {
+      color: var(--orange);
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    /* ── What You Get ── */
+    .features {
+      padding: 100px 32px;
+      background: var(--white);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 64px;
+    }
+
+    .feature-card {
+      padding: 32px;
+      border: 1px solid var(--gray-200);
+      border-radius: 12px;
+      transition: border-color 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--orange);
+    }
+
+    .feature-card h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(255,105,0,0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--orange);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 48px 32px;
+      background: var(--black);
+      color: var(--gray-400);
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      height: 22px;
+      opacity: 0.6;
+    }
+
+    .footer p {
+      font-size: 13px;
+    }
+
+    .footer a {
+      color: var(--orange);
+      text-decoration: none;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .assessment-grid { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr; gap: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero { padding: 120px 24px 80px; }
+      .how-it-works, .assessment, .features { padding: 72px 24px; }
+      .form-card { padding: 28px; }
+      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <img src="https://www.mindalizer.com/wp-content/uploads/2020/02/mind-full-h-White-1.png" alt="Mindalizer" class="logo">
+      <a href="#assessment" class="header-cta">Get your assessment</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Free Assessment</div>
+      <h1>Is your website ready for the <span>AI era</span>?</h1>
+      <p>Most websites are invisible to AI assistants. Our LLM-Readiness Assessment analyzes your site and delivers a concrete action plan to make your content discoverable, citable, and authoritative for Large Language Models.</p>
+      <a href="#assessment" class="hero-cta">
+        Start free assessment
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="section-inner">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">Three steps to AI visibility</h2>
+      <p class="section-subtitle">We analyze your website using the same techniques that AI assistants use to understand and recommend businesses.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </div>
+          <div class="step-number">01</div>
+          <h3>Submit your website</h3>
+          <p>Enter your URL and a few details about your business. The more context you provide, the more tailored your report will be.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="step-number">02</div>
+          <h3>AI-powered analysis</h3>
+          <p>We crawl your site, extract structured data, and evaluate your content against 25+ LLM-readiness criteria across 4 dimensions.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <div class="step-number">03</div>
+          <h3>Get your report</h3>
+          <p>Receive a detailed assessment with scores, actionable recommendations, and a prioritized implementation roadmap directly to your email.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Assessment Form -->
+  <section class="assessment" id="assessment">
+    <div class="section-inner">
+      <div class="assessment-grid">
+        <div class="assessment-info">
+          <div class="section-label">Free assessment</div>
+          <h2>Get your LLM-Readiness score</h2>
+          <p>Fill in the form and we'll analyze your website across four critical dimensions. Your personalized report will be delivered to your inbox within minutes.</p>
+          <ul class="info-list">
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <div><strong>Structure & Navigation</strong> &mdash; Site architecture, headings, internal linking, and URL hierarchy</div>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <div><strong>Content Quality</strong> &mdash; Depth, specificity, authority signals, and educational value</div>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <div><strong>Technical SEO</strong> &mdash; Schema.org markup, metadata, structured data, and crawlability</div>
+            </li>
+            <li>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <div><strong>AI Preparation</strong> &mdash; LLM-specific optimization, citability, and content discoverability</div>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="form-card" id="formCard">
+            <h3>Start your assessment</h3>
+            <p>All fields help us deliver a more accurate analysis.</p>
+            <form id="assessmentForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your name</label>
+                  <input type="text" id="name" name="name" placeholder="John Smith" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Business email</label>
+                  <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="url">Website URL</label>
+                <input type="url" id="url" name="url" placeholder="https://www.yourwebsite.com" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="businessType">Business type</label>
+                  <select id="businessType" name="businessType">
+                    <option value="">Select...</option>
+                    <option value="SaaS / Software">SaaS / Software</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Professional Services">Professional Services</option>
+                    <option value="Consulting / Agency">Consulting / Agency</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance / Insurance">Finance / Insurance</option>
+                    <option value="Education">Education</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Hospitality / Tourism">Hospitality / Tourism</option>
+                    <option value="Non-profit">Non-profit</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="goal">Main goal</label>
+                  <select id="goal" name="goal">
+                    <option value="">Select...</option>
+                    <option value="Get discovered by AI assistants">Get discovered by AI assistants</option>
+                    <option value="Improve search visibility">Improve search visibility</option>
+                    <option value="Content strategy overhaul">Content strategy overhaul</option>
+                    <option value="Technical SEO improvement">Technical SEO improvement</option>
+                    <option value="Competitive analysis">Competitive analysis</option>
+                    <option value="General website audit">General website audit</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="context">Additional context <span style="color:var(--gray-400);font-weight:400;">(optional)</span></label>
+                <textarea id="context" name="context" placeholder="Tell us about your business, target audience, key services, or specific concerns..."></textarea>
+              </div>
+              <button type="submit" class="form-submit" id="submitBtn">
+                Run assessment
+              </button>
+              <p class="form-note">Free assessment. Report delivered to your email within minutes.</p>
+            </form>
+          </div>
+
+          <!-- Chat Response Area -->
+          <div class="chat-response" id="chatResponse">
+            <div class="chat-response-header">
+              <div class="chat-spinner" id="chatSpinner"></div>
+              <span id="chatStatus">Analyzing your website...</span>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-complete" id="chatComplete">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <strong>Assessment complete!</strong> A detailed report has been sent to your email.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Get -->
+  <section class="features">
+    <div class="section-inner">
+      <div class="section-label">Your report includes</div>
+      <h2 class="section-title">Everything you need to take action</h2>
+      <p class="section-subtitle">A comprehensive assessment scored across four dimensions, with specific recommendations for each page of your website.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h4>LLM-Readiness Score</h4>
+          <p>A clear score out of 100, broken down across Structure, Content, Technical SEO, and AI Preparation dimensions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h4>Page-by-page plan</h4>
+          <p>Specific recommendations for each page of your site, including content rewrites, metadata, and structured data additions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <h4>Company profile</h4>
+          <p>We extract and organize your company data the way AI models see it, highlighting gaps in your business information.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h4>Strengths & weaknesses</h4>
+          <p>Clear identification of what your site does well and where the critical gaps are, prioritized by impact.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h4>Implementation roadmap</h4>
+          <p>A phased action plan with Quick Wins (1-2 weeks), Medium-term (1-3 months), and Strategic (3-6 months) recommendations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h4>Email delivery</h4>
+          <p>Your complete report is delivered as a beautifully formatted email you can share with your team or developers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <img src="https://www.mindalizer.com/wp-content/uploads/2020/02/mind-full-h-White-1.png" alt="Mindalizer" class="footer-logo">
+      <p>&copy; 2026 <a href="https://www.mindalizer.com">Mindalizer Consulting</a>. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll effect
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Chat webhook URL
+    var WEBHOOK_URL = 'https://mindalizerai.app.n8n.cloud/webhook/llm-readiness-v6/chat';
+
+    // Generate session ID
+    function generateSessionId() {
+      return 'web-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Form submission
+    var form = document.getElementById('assessmentForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var chatResponse = document.getElementById('chatResponse');
+    var chatMessages = document.getElementById('chatMessages');
+    var chatStatus = document.getElementById('chatStatus');
+    var chatSpinner = document.getElementById('chatSpinner');
+    var chatComplete = document.getElementById('chatComplete');
+    var formCard = document.getElementById('formCard');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var url = document.getElementById('url').value.trim();
+      var businessType = document.getElementById('businessType').value;
+      var goal = document.getElementById('goal').value;
+      var context = document.getElementById('context').value.trim();
+
+      // Build structured message
+      var message = url;
+      message += '\n\n---CONTEXT---';
+      message += '\nName: ' + name;
+      message += '\nEmail: ' + email;
+      if (businessType) message += '\nBusiness Type: ' + businessType;
+      if (goal) message += '\nMain Goal: ' + goal;
+      if (context) message += '\nAdditional Context: ' + context;
+      message += '\n---END CONTEXT---';
+
+      // Disable form
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Analyzing...';
+
+      // Show response area
+      chatResponse.classList.add('active');
+      chatMessages.innerHTML = '<p>Connecting to our analysis engine...</p>';
+
+      // Scroll to response
+      chatResponse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      var sessionId = generateSessionId();
+
+      // Send to n8n webhook
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'sendMessage',
+          chatInput: message,
+          sessionId: sessionId
+        })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        // Show progress updates
+        chatMessages.innerHTML = '';
+
+        var steps = [
+          { text: 'Scraping your website content...', delay: 0 },
+          { text: 'Extracting links and site structure...', delay: 2000 },
+          { text: 'Mapping all site pages...', delay: 4000 },
+          { text: 'Running AI-powered analysis...', delay: 8000 },
+          { text: 'Generating your report...', delay: 15000 }
+        ];
+
+        steps.forEach(function(step) {
+          setTimeout(function() {
+            chatStatus.textContent = step.text;
+          }, step.delay);
+        });
+
+        // Handle response
+        var output = data.output || data.text || (data[0] && data[0].output) || 'Analysis complete.';
+
+        // Show completion after getting response
+        chatSpinner.style.display = 'none';
+        chatStatus.textContent = 'Analysis complete';
+        chatMessages.innerHTML = '<p>' + output.substring(0, 200) + '...</p>';
+        chatComplete.style.display = 'block';
+
+        submitBtn.textContent = 'Assessment sent!';
+      })
+      .catch(function(err) {
+        chatSpinner.style.display = 'none';
+        chatStatus.textContent = 'Processing your request...';
+        chatMessages.innerHTML = '<p>Your assessment is being processed. The detailed report will be sent to <strong>' + email + '</strong> within a few minutes.</p>';
+        chatComplete.style.display = 'block';
+        submitBtn.textContent = 'Assessment requested';
+      });
+    });
+  </script>
+</body>
+</html>
