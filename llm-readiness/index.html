@@ -99,7 +99,7 @@
 
     /* ── Hero ── */
     .hero {
-      background: linear-gradient(160deg, var(--royal-blue) 0%, var(--catalina-blue) 40%, var(--gunmetal) 100%);
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80&auto=format') center center / cover no-repeat;
       color: var(--bg-white);
       padding: 160px 32px 120px;
       position: relative;
@@ -109,22 +109,19 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -30%;
-      right: -10%;
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(247, 158, 12, 0.07) 0%, transparent 65%);
+      inset: 0;
+      background: linear-gradient(160deg, rgba(8, 29, 91, 0.88) 0%, rgba(9, 35, 114, 0.82) 40%, rgba(34, 51, 59, 0.85) 100%);
       pointer-events: none;
     }
 
     .hero::after {
       content: '';
       position: absolute;
-      bottom: -40%;
-      left: -15%;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(168, 203, 190, 0.06) 0%, transparent 65%);
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--gunmetal), transparent);
       pointer-events: none;
     }
 
@@ -473,27 +470,34 @@
     .chat-response {
       display: none;
       margin-top: 24px;
-      padding: 24px;
-      background: var(--bg-light);
+      padding: 28px;
+      background: var(--bg-white);
       border: 1px solid var(--border);
       border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(34, 51, 59, 0.06);
     }
 
     .chat-response.active {
       display: block;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .chat-response-header {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 16px;
+      gap: 12px;
+      margin-bottom: 8px;
     }
 
     .chat-spinner {
-      width: 20px;
-      height: 20px;
-      border: 2px solid var(--gainsboro);
+      width: 22px;
+      height: 22px;
+      border: 2.5px solid var(--gainsboro);
       border-top-color: var(--catalina-blue);
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
@@ -504,9 +508,115 @@
     }
 
     .chat-response-header span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gunmetal);
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: var(--gainsboro);
+      border-radius: 4px;
+      margin: 16px 0 24px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--catalina-blue), var(--orange));
+      border-radius: 4px;
+      transition: width 0.6s ease-out;
+    }
+
+    /* Step Items */
+    .progress-steps {
+      list-style: none;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
       font-size: 14px;
+      color: var(--roman-silver);
+      transition: color 0.3s, opacity 0.3s;
+      opacity: 0.45;
+    }
+
+    .progress-step.active {
+      color: var(--gunmetal);
+      opacity: 1;
       font-weight: 500;
+    }
+
+    .progress-step.done {
       color: var(--storm-cloud);
+      opacity: 0.7;
+    }
+
+    .step-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--bg-light);
+      border: 1.5px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .progress-step.active .step-indicator {
+      border-color: var(--catalina-blue);
+      background: rgba(9, 35, 114, 0.06);
+    }
+
+    .progress-step.active .step-indicator::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--catalina-blue);
+      border-radius: 50%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .progress-step.done .step-indicator {
+      border-color: #2e7d32;
+      background: #e8f5e9;
+    }
+
+    .progress-step.done .step-indicator::after {
+      content: '';
+      display: none;
+    }
+
+    .progress-step.done .step-indicator svg {
+      display: block;
+    }
+
+    .step-indicator svg {
+      display: none;
+      width: 14px;
+      height: 14px;
+      color: #2e7d32;
+    }
+
+    .step-elapsed {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--roman-silver);
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
     }
 
     .chat-messages {
@@ -521,19 +631,20 @@
 
     .chat-complete {
       display: none;
-      margin-top: 16px;
-      padding: 16px;
-      background: rgba(9, 35, 114, 0.04);
-      border: 1px solid rgba(9, 35, 114, 0.12);
-      border-radius: 8px;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      border-radius: 10px;
       font-size: 14px;
-      color: var(--storm-cloud);
+      color: #2e7d32;
+      animation: slideUp 0.4s ease-out;
     }
 
     .chat-complete svg {
-      color: var(--catalina-blue);
+      color: #2e7d32;
       vertical-align: middle;
-      margin-right: 6px;
+      margin-right: 8px;
     }
 
     /* ── What You Get ── */
@@ -635,32 +746,101 @@
 
     /* ── Footer ── */
     .footer {
-      padding: 48px 32px;
-      background: var(--royal-blue);
-      color: var(--roman-silver);
+      padding: 64px 32px 0;
+      background: #0a0a1a;
+      color: rgba(255, 255, 255, 0.7);
       border-top: 1px solid rgba(168, 203, 190, 0.08);
     }
 
     .footer-inner {
       max-width: 1120px;
       margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-logo {
+      height: 28px;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .footer-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .footer-col p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-col a {
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 2.2;
+      display: block;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--orange);
+    }
+
+    .footer-contact {
+      font-size: 14px;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-contact a {
+      display: inline;
+      font-size: 14px;
+    }
+
+    .footer-address {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom {
+      padding: 24px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .footer-logo {
-      height: 22px;
-      opacity: 0.6;
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
-    .footer p {
-      font-size: 13px;
-    }
-
-    .footer a {
-      color: var(--orange);
+    .footer-bottom a {
+      color: rgba(255, 255, 255, 0.45);
       text-decoration: none;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--orange);
     }
 
     /* ── Responsive ── */
@@ -672,7 +852,8 @@
       .hero { padding: 120px 24px 80px; }
       .how-it-works, .assessment, .features { padding: 72px 24px; }
       .form-card { padding: 28px; }
-      .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .trust-bar-inner { flex-direction: column; gap: 16px; }
     }
   </style>
@@ -852,9 +1033,44 @@
               <div class="chat-spinner" id="chatSpinner"></div>
               <span id="chatStatus">Analyzing your website...</span>
             </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <ul class="progress-steps" id="progressSteps">
+              <li class="progress-step" data-step="0">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Connecting to analysis engine
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="1">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Scraping website content
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="2">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Extracting links &amp; site structure
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="3">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Mapping all site pages
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="4">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Running AI-powered analysis
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="5">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Generating report &amp; sending email
+                <span class="step-elapsed"></span>
+              </li>
+            </ul>
             <div class="chat-messages" id="chatMessages"></div>
             <div class="chat-complete" id="chatComplete">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
               <strong>Assessment complete!</strong> A detailed report has been sent to your email.
             </div>
           </div>
@@ -931,8 +1147,39 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="footer-inner">
-      <img src="https://www.mindalizer.com/wp-content/uploads/2020/02/mind-full-h-White-1.png" alt="Mindalizer" class="footer-logo">
-      <p>&copy; 2026 <a href="https://www.mindalizer.com">Mindalizer Consulting</a>. All rights reserved.</p>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="https://www.mindalizer.com/wp-content/uploads/2020/02/mind-full-h-White-1.png" alt="Mindalizer" class="footer-logo">
+          <div class="footer-label">We Are</div>
+          <p>A boutique consulting firm focused on redesigning systems, aligning strategy, and embedding intelligent transformation.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-label">Contacts</div>
+          <div class="footer-contact">
+            <a href="tel:+351915356052">+351 915 356 052</a>
+            <a href="mailto:info@mindalizer.com">info@mindalizer.com</a>
+          </div>
+          <div class="footer-address">
+            Av. D. Jo&atilde;o II, n&ordm;50 &ndash; 4&ordm;<br>
+            Parque das Na&ccedil;&otilde;es<br>
+            1990-095 Lisboa<br>
+            Portugal
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-label">Social Media</div>
+          <a href="https://www.linkedin.com/company/mindalizer/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-label">Resources</div>
+          <a href="https://www.mindalizer.com/brandbook/" target="_blank" rel="noopener">Mindalizer's Brandbook</a>
+          <a href="https://www.mindalizer.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mindalizer Consulting. Designed for Transformation.</p>
+        <a href="https://www.mindalizer.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy and Full List of Credits</a>
+      </div>
     </div>
   </footer>
 
@@ -953,6 +1200,72 @@
     // Generate session ID
     function generateSessionId() {
       return 'web-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Progress controller
+    var progressState = {
+      currentStep: -1,
+      startTime: null,
+      stepTimers: [],
+      elapsedInterval: null
+    };
+
+    function activateStep(index) {
+      var steps = document.querySelectorAll('.progress-step');
+      var progressBar = document.getElementById('progressBar');
+      var chatStatus = document.getElementById('chatStatus');
+      var totalSteps = steps.length;
+
+      // Mark previous steps as done
+      for (var i = 0; i <= index - 1; i++) {
+        steps[i].classList.remove('active');
+        steps[i].classList.add('done');
+      }
+
+      // Activate current step
+      if (index < totalSteps) {
+        steps[index].classList.add('active');
+        steps[index].classList.remove('done');
+        var stepText = steps[index].textContent.trim().split('\n')[0].trim();
+        chatStatus.textContent = stepText + '...';
+      }
+
+      // Update progress bar
+      var pct = Math.min(((index + 0.5) / totalSteps) * 100, 100);
+      progressBar.style.width = pct + '%';
+
+      progressState.currentStep = index;
+    }
+
+    function startElapsedTimer() {
+      progressState.startTime = Date.now();
+      progressState.elapsedInterval = setInterval(function() {
+        var steps = document.querySelectorAll('.progress-step');
+        var idx = progressState.currentStep;
+        if (idx >= 0 && idx < steps.length) {
+          var elapsed = Math.floor((Date.now() - progressState.startTime) / 1000);
+          var min = Math.floor(elapsed / 60);
+          var sec = elapsed % 60;
+          var timeStr = min > 0 ? min + 'm ' + sec + 's' : sec + 's';
+          var elSpan = steps[idx].querySelector('.step-elapsed');
+          if (elSpan) elSpan.textContent = timeStr;
+        }
+      }, 1000);
+    }
+
+    function completeAllSteps() {
+      var steps = document.querySelectorAll('.progress-step');
+      var progressBar = document.getElementById('progressBar');
+      for (var i = 0; i < steps.length; i++) {
+        steps[i].classList.remove('active');
+        steps[i].classList.add('done');
+      }
+      progressBar.style.width = '100%';
+      clearInterval(progressState.elapsedInterval);
+
+      // Clear all pending timers
+      progressState.stepTimers.forEach(function(t) { clearTimeout(t); });
+      progressState.stepTimers = [];
     }
 
     // Form submission
@@ -991,10 +1304,18 @@
 
       // Show response area
       chatResponse.classList.add('active');
-      chatMessages.innerHTML = '<p>Connecting to our analysis engine...</p>';
+      chatMessages.innerHTML = '';
 
       // Scroll to response
       chatResponse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Start progress animation
+      startElapsedTimer();
+      var stepDelays = [0, 3000, 7000, 12000, 20000, 35000];
+      stepDelays.forEach(function(delay, i) {
+        var t = setTimeout(function() { activateStep(i); }, delay);
+        progressState.stepTimers.push(t);
+      });
 
       var sessionId = generateSessionId();
 
@@ -1010,37 +1331,20 @@
       })
       .then(function(response) { return response.json(); })
       .then(function(data) {
-        // Show progress updates
-        chatMessages.innerHTML = '';
-
-        var steps = [
-          { text: 'Scraping your website content...', delay: 0 },
-          { text: 'Extracting links and site structure...', delay: 2000 },
-          { text: 'Mapping all site pages...', delay: 4000 },
-          { text: 'Running AI-powered analysis...', delay: 8000 },
-          { text: 'Generating your report...', delay: 15000 }
-        ];
-
-        steps.forEach(function(step) {
-          setTimeout(function() {
-            chatStatus.textContent = step.text;
-          }, step.delay);
-        });
-
         // Handle response
         var output = data.output || data.text || (data[0] && data[0].output) || 'Analysis complete.';
 
-        // Show completion after getting response
+        // Complete all steps
+        completeAllSteps();
         chatSpinner.style.display = 'none';
         chatStatus.textContent = 'Analysis complete';
-        chatMessages.innerHTML = '<p>' + output.substring(0, 200) + '...</p>';
         chatComplete.style.display = 'block';
-
         submitBtn.textContent = 'Assessment sent!';
       })
       .catch(function(err) {
+        completeAllSteps();
         chatSpinner.style.display = 'none';
-        chatStatus.textContent = 'Processing your request...';
+        chatStatus.textContent = 'Assessment submitted';
         chatMessages.innerHTML = '<p>Your assessment is being processed. The detailed report will be sent to <strong>' + email + '</strong> within a few minutes.</p>';
         chatComplete.style.display = 'block';
         submitBtn.textContent = 'Assessment requested';
