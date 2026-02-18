@@ -905,6 +905,155 @@
       color: var(--orange);
     }
 
+    /* ── Why It Matters ── */
+    .why-matters {
+      padding: 100px 32px;
+      background: var(--bg-white);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(8, 29, 91, 0.12);
+      margin-bottom: 64px;
+      box-shadow: 0 4px 24px rgba(8, 29, 91, 0.07);
+    }
+
+    .stat-block {
+      background: linear-gradient(160deg, var(--royal-blue) 0%, var(--catalina-blue) 100%);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .stat-block:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.5;
+      max-width: 180px;
+    }
+
+    .issues-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .issue-card {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .issue-card:hover {
+      border-color: rgba(9, 35, 114, 0.2);
+      box-shadow: 0 4px 16px rgba(9, 35, 114, 0.06);
+    }
+
+    .issue-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(9, 35, 114, 0.08) 0%, rgba(9, 35, 114, 0.04) 100%);
+      border: 1px solid rgba(9, 35, 114, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .issue-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--catalina-blue);
+    }
+
+    .issue-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 6px;
+    }
+
+    .issue-content p {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      line-height: 1.65;
+    }
+
+    .silver-lining {
+      background: linear-gradient(135deg, rgba(247, 158, 12, 0.08) 0%, rgba(247, 158, 12, 0.03) 100%);
+      border: 1px solid rgba(247, 158, 12, 0.25);
+      border-left: 4px solid var(--orange);
+      border-radius: 12px;
+      padding: 32px 36px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .silver-lining-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(247, 158, 12, 0.15);
+      border: 1px solid rgba(247, 158, 12, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .silver-lining-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--orange);
+    }
+
+    .silver-lining-content .silver-lining-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+
+    .silver-lining-content h4 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 8px;
+    }
+
+    .silver-lining-content p {
+      font-size: 15px;
+      color: var(--storm-cloud);
+      line-height: 1.65;
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       .steps { grid-template-columns: 1fr; gap: 40px; }
@@ -918,6 +1067,11 @@
       .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
       .trust-bar-inner { grid-template-columns: 1fr 1fr; }
       .trust-item { border-right: none; border-bottom: 1px solid rgba(168, 203, 190, 0.1); }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .issues-grid { grid-template-columns: 1fr; }
+      .silver-lining { flex-direction: column; gap: 16px; }
+      .why-matters { padding: 72px 24px; }
     }
   </style>
 </head>
@@ -970,6 +1124,87 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         </div>
         Report delivered by email
+      </div>
+    </div>
+  </section>
+
+  <!-- Why It Matters -->
+  <section class="why-matters">
+    <div class="section-inner">
+      <div class="section-label">Why it matters</div>
+      <h2 class="section-title">Your website may already be invisible to AI</h2>
+      <p class="section-subtitle">Search is being fundamentally rewritten. AI assistants are the new gatekeepers — and most websites are not even in the conversation.</p>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-block">
+          <span class="stat-number">6/10</span>
+          <span class="stat-label">searches now show AI answers directly on the results page, halving click-through rates</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">−25%</span>
+          <span class="stat-label">drop in traditional search traffic expected by 2026 as users adopt AI tools</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">2–7</span>
+          <span class="stat-label">domains cited in a typical AI response, vs. 10 blue links in traditional search</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">3×</span>
+          <span class="stat-label">higher conversion rate for users who arrive via an AI citation or recommendation</span>
+        </div>
+      </div>
+
+      <!-- Issue Cards -->
+      <div class="issues-grid">
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/><circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.12"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>The Rise of Zero-Click Searches</h4>
+            <p>AI Overviews and featured snippets appear in 6 out of 10 searches — and when they do, click-through rates are halved. Search engines now answer queries directly on the results page, keeping users on their own platform.</p>
+          </div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>Synthesized AI Responses</h4>
+            <p>ChatGPT, Perplexity, and Gemini combine insights from multiple sources into a single conversational answer. Users get what they need instantly — making the act of clicking through to individual websites redundant for most informational queries.</p>
+          </div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>Shifting User Behaviour</h4>
+            <p>Users increasingly turn to generative AI for fast, direct answers. AI systems use "query fan-out" to break complex questions into sub-questions and provide comprehensive summaries — eliminating the need for manual research across multiple sites.</p>
+          </div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>A Compressed, High-Stakes Landscape</h4>
+            <p>AI responses cite only 2–7 domains, versus the 10 links of traditional search — drastically increasing competition. Sites that rank well for humans may be entirely invisible to AI if their content isn't structured for machine-legibility and LLM retrieval.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Silver Lining -->
+      <div class="silver-lining">
+        <div class="silver-lining-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="silver-lining-content">
+          <div class="silver-lining-label">The strategic opportunity</div>
+          <h4>Lower volume, far higher intent</h4>
+          <p>Despite the drop in raw traffic, users who click through after an AI interaction arrive with higher conviction and more context — converting at up to <strong>3× the rate</strong> of traditional search visitors. In the AI era, visibility is measured not by clicks alone, but by whether your brand is <strong>included, cited, and recommended</strong> within the AI's response layer. The businesses that optimise for this now will own the next decade of search.</p>
+        </div>
       </div>
     </div>
   </section>
