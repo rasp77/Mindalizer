@@ -956,16 +956,16 @@
     .issues-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-bottom: 40px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
     .issue-card {
-      padding: 32px;
+      padding: 20px 22px;
       border: 1px solid var(--border);
       border-radius: 12px;
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: flex-start;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
@@ -976,52 +976,10 @@
     }
 
     .issue-icon {
-      width: 48px;
-      height: 48px;
+      width: 38px;
+      height: 38px;
       background: linear-gradient(135deg, rgba(9, 35, 114, 0.08) 0%, rgba(9, 35, 114, 0.04) 100%);
       border: 1px solid rgba(9, 35, 114, 0.1);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .issue-icon svg {
-      width: 22px;
-      height: 22px;
-      color: var(--catalina-blue);
-    }
-
-    .issue-content h4 {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--gunmetal);
-      margin-bottom: 6px;
-    }
-
-    .issue-content p {
-      font-size: 14px;
-      color: var(--storm-cloud);
-      line-height: 1.65;
-    }
-
-    .silver-lining {
-      background: linear-gradient(135deg, rgba(247, 158, 12, 0.08) 0%, rgba(247, 158, 12, 0.03) 100%);
-      border: 1px solid rgba(247, 158, 12, 0.25);
-      border-left: 4px solid var(--orange);
-      border-radius: 12px;
-      padding: 32px 36px;
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    .silver-lining-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(247, 158, 12, 0.15);
-      border: 1px solid rgba(247, 158, 12, 0.3);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -1029,32 +987,74 @@
       flex-shrink: 0;
     }
 
+    .issue-icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--catalina-blue);
+    }
+
+    .issue-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 4px;
+    }
+
+    .issue-content p {
+      font-size: 13px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+    }
+
+    .silver-lining {
+      background: linear-gradient(135deg, rgba(247, 158, 12, 0.08) 0%, rgba(247, 158, 12, 0.03) 100%);
+      border: 1px solid rgba(247, 158, 12, 0.25);
+      border-left: 4px solid var(--orange);
+      border-radius: 12px;
+      padding: 22px 28px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .silver-lining-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(247, 158, 12, 0.15);
+      border: 1px solid rgba(247, 158, 12, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
     .silver-lining-icon svg {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       color: var(--orange);
     }
 
     .silver-lining-content .silver-lining-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--orange);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .silver-lining-content h4 {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--gunmetal);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .silver-lining-content p {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--storm-cloud);
-      line-height: 1.65;
+      line-height: 1.6;
     }
 
     /* ── Analysis Waiting Panel ── */
@@ -1456,7 +1456,7 @@
           </div>
           <div class="issue-content">
             <h4>The Rise of Zero-Click Searches</h4>
-            <p>AI Overviews and featured snippets appear in 6 out of 10 searches — and when they do, click-through rates are halved. Search engines now answer queries directly on the results page, keeping users on their own platform.</p>
+            <p>AI Overviews appear in 6 out of 10 searches — halving click-through rates as search engines answer queries directly on the results page.</p>
           </div>
         </div>
         <div class="issue-card">
@@ -1465,7 +1465,7 @@
           </div>
           <div class="issue-content">
             <h4>Synthesized AI Responses</h4>
-            <p>ChatGPT, Perplexity, and Gemini combine insights from multiple sources into a single conversational answer. Users get what they need instantly — making the act of clicking through to individual websites redundant for most informational queries.</p>
+            <p>ChatGPT, Perplexity, and Gemini combine multiple sources into one answer — making individual website visits redundant for most informational queries.</p>
           </div>
         </div>
         <div class="issue-card">
@@ -1474,7 +1474,7 @@
           </div>
           <div class="issue-content">
             <h4>Shifting User Behaviour</h4>
-            <p>Users increasingly turn to generative AI for fast, direct answers. AI systems use "query fan-out" to break complex questions into sub-questions and provide comprehensive summaries — eliminating the need for manual research across multiple sites.</p>
+            <p>Users increasingly turn to AI for fast, direct answers — eliminating the need for manual research across multiple sites.</p>
           </div>
         </div>
         <div class="issue-card">
@@ -1483,7 +1483,7 @@
           </div>
           <div class="issue-content">
             <h4>A Compressed, High-Stakes Landscape</h4>
-            <p>AI responses cite only 2–7 domains, versus the 10 links of traditional search — drastically increasing competition. Sites that rank well for humans may be entirely invisible to AI if their content isn't structured for machine-legibility and LLM retrieval.</p>
+            <p>AI cites only 2–7 domains per response — sites ranking well for humans may be entirely invisible to AI without proper content structure.</p>
           </div>
         </div>
       </div>
@@ -1496,7 +1496,7 @@
         <div class="silver-lining-content">
           <div class="silver-lining-label">The strategic opportunity</div>
           <h4>Lower volume, far higher intent</h4>
-          <p>Despite the drop in raw traffic, users who click through after an AI interaction arrive with higher conviction and more context — converting at up to <strong>3× the rate</strong> of traditional search visitors. In the AI era, visibility is measured not by clicks alone, but by whether your brand is <strong>included, cited, and recommended</strong> within the AI's response layer. The businesses that optimise for this now will own the next decade of search.</p>
+          <p>Users who arrive via an AI citation convert at up to <strong>3× the rate</strong> of traditional search visitors — they arrive with more context and higher intent. In the AI era, visibility means being <strong>included, cited, and recommended</strong> within AI responses. The businesses that optimise for this now will own the next decade of search.</p>
         </div>
       </div>
     </div>
