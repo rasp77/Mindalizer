@@ -1938,6 +1938,23 @@
       // Clear all pending timers
       progressState.stepTimers.forEach(function(t) { clearTimeout(t); });
       progressState.stepTimers = [];
+
+      // Update left panel to completion state
+      var dot = document.querySelector('.analysis-step-dot');
+      var stepTextEl = document.getElementById('analysisStepText');
+      if (dot) {
+        dot.style.animation = 'none';
+        dot.style.background = '#2e7d32';
+      }
+      if (stepTextEl) {
+        stepTextEl.textContent = 'Analysis complete';
+        stepTextEl.style.color = '#2e7d32';
+      }
+      var labelEl = document.getElementById('analysisStepLabel');
+      if (labelEl) labelEl.style.color = '#2e7d32';
+
+      // Stop insight card rotation
+      if (insightInterval) clearInterval(insightInterval);
     }
 
     // Form submission
