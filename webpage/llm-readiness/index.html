@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM-Readiness Assessment | Mindalizer</title>
+  <meta name="description" content="Is your website ready for AI? Get a free LLM-Readiness assessment with actionable insights to make your content discoverable by AI assistants.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Brand Colors */
+      --gunmetal: #22333B;
+      --storm-cloud: #54685F;
+      --roman-silver: #84A295;
+      --pastel-blue: #A8CBBE;
+      --gainsboro: #d5e2e1;
+      --orange: #f79e0c;
+      --orange-dark: #e08e00;
+      --absolute-zero: #0015d3;
+      --catalina-blue: #092372;
+      --royal-blue: #081d5b;
+
+      /* Semantic tokens */
+      --bg-dark: var(--royal-blue);
+      --bg-light: #f7fafa;
+      --bg-white: #ffffff;
+      --text-primary: var(--gunmetal);
+      --text-secondary: var(--storm-cloud);
+      --text-muted: var(--roman-silver);
+      --text-on-dark: #e8eff0;
+      --accent: var(--orange);
+      --accent-hover: var(--orange-dark);
+      --border: var(--gainsboro);
+      --border-subtle: #e8eeed;
+
+      --font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    .header.scrolled {
+      background: rgba(8, 29, 91, 0.97);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(168, 203, 190, 0.1);
+    }
+
+    .header-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      height: 28px;
+      opacity: 0.95;
+    }
+
+    .header-cta {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bg-white);
+      text-decoration: none;
+      padding: 8px 20px;
+      border: 1px solid rgba(168, 203, 190, 0.3);
+      border-radius: 6px;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .header-cta:hover {
+      border-color: var(--orange);
+      color: var(--orange);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80&auto=format') center center / cover no-repeat;
+      color: var(--bg-white);
+      padding: 160px 32px 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(8, 29, 91, 0.88) 0%, rgba(9, 35, 114, 0.82) 40%, rgba(34, 51, 59, 0.85) 100%);
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(to top, var(--gunmetal), transparent);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 24px;
+      padding: 6px 14px;
+      border: 1px solid rgba(247, 158, 12, 0.35);
+      border-radius: 4px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      line-height: 1.1;
+      max-width: 720px;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      color: var(--orange);
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--pastel-blue);
+      max-width: 540px;
+      margin-bottom: 40px;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      background: var(--orange);
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .hero-cta svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* ── Trust Bar ── */
+    .trust-bar {
+      background: var(--gunmetal);
+      padding: 0 32px;
+      border-bottom: 1px solid rgba(168, 203, 190, 0.1);
+    }
+
+    .trust-bar-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--pastel-blue);
+      letter-spacing: 0.01em;
+      padding: 24px 16px;
+      border-right: 1px solid rgba(168, 203, 190, 0.1);
+      transition: background 0.2s;
+    }
+
+    .trust-item:last-child {
+      border-right: none;
+    }
+
+    .trust-item:hover {
+      background: rgba(168, 203, 190, 0.04);
+    }
+
+    .trust-icon-wrap {
+      width: 40px;
+      height: 40px;
+      background: rgba(247, 158, 12, 0.1);
+      border: 1px solid rgba(247, 158, 12, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .trust-item--free {
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-size: 15px;
+      background: rgba(247, 158, 12, 0.12);
+      border-right-color: rgba(247, 158, 12, 0.2);
+      position: relative;
+    }
+
+    .trust-item--free::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    .trust-icon-wrap--free {
+      width: 44px;
+      height: 44px;
+      background: var(--orange);
+      border-color: var(--orange);
+      box-shadow: 0 0 16px rgba(247, 158, 12, 0.3);
+    }
+
+    .trust-icon-wrap--free svg {
+      color: var(--gunmetal) !important;
+    }
+
+    .trust-item svg {
+      width: 18px;
+      height: 18px;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* ── How It Works ── */
+    .how-it-works {
+      padding: 100px 32px;
+      background: var(--bg-white);
+    }
+
+    .section-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--catalina-blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 700;
+      color: var(--gunmetal);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--storm-cloud);
+      max-width: 560px;
+      margin-bottom: 64px;
+      line-height: 1.6;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step {
+      position: relative;
+    }
+
+    .step-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--gainsboro);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+    }
+
+    .step-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, rgba(9, 35, 114, 0.08) 0%, rgba(9, 35, 114, 0.04) 100%);
+      border: 1px solid rgba(9, 35, 114, 0.12);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .step:hover .step-icon {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(9, 35, 114, 0.1);
+    }
+
+    .step-icon svg {
+      width: 30px;
+      height: 30px;
+      color: var(--catalina-blue);
+    }
+
+    /* ── Assessment Section ── */
+    .assessment {
+      padding: 100px 32px;
+      background: var(--bg-light);
+    }
+
+    .assessment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .assessment-info h2 {
+      font-size: clamp(28px, 3.5vw, 36px);
+      font-weight: 700;
+      color: var(--gunmetal);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .assessment-info p {
+      font-size: 16px;
+      color: var(--storm-cloud);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+
+    .info-list {
+      list-style: none;
+    }
+
+    .info-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      font-size: 15px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+
+    .info-list svg {
+      width: 18px;
+      height: 18px;
+      color: var(--catalina-blue);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .info-list strong {
+      color: var(--gunmetal);
+    }
+
+    /* ── Form ── */
+    .form-card {
+      background: var(--bg-white);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: 0 1px 3px rgba(34, 51, 59, 0.04), 0 8px 24px rgba(34, 51, 59, 0.08);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .form-card h3 {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 4px;
+    }
+
+    .form-card > p {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gunmetal);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: var(--font);
+      color: var(--gunmetal);
+      background: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--catalina-blue);
+      box-shadow: 0 0 0 3px rgba(9, 35, 114, 0.08);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      font-family: var(--font);
+      color: var(--gunmetal);
+      background: var(--orange);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 8px;
+    }
+
+    .form-submit:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .form-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--roman-silver);
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* ── Chat Response Area ── */
+    .chat-response {
+      display: none;
+      margin-top: 24px;
+      padding: 28px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(34, 51, 59, 0.06);
+    }
+
+    .chat-response.active {
+      display: block;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-response-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .chat-spinner {
+      width: 22px;
+      height: 22px;
+      border: 2.5px solid var(--gainsboro);
+      border-top-color: var(--catalina-blue);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .chat-response-header span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gunmetal);
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: var(--gainsboro);
+      border-radius: 4px;
+      margin: 16px 0 24px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--catalina-blue), var(--orange));
+      border-radius: 4px;
+      transition: width 0.6s ease-out;
+    }
+
+    /* Step Items */
+    .progress-steps {
+      list-style: none;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 14px;
+      color: var(--roman-silver);
+      transition: color 0.3s, opacity 0.3s;
+      opacity: 0.45;
+    }
+
+    .progress-step.active {
+      color: var(--gunmetal);
+      opacity: 1;
+      font-weight: 500;
+    }
+
+    .progress-step.done {
+      color: var(--storm-cloud);
+      opacity: 0.7;
+    }
+
+    .step-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: var(--bg-light);
+      border: 1.5px solid var(--border);
+      transition: all 0.3s;
+    }
+
+    .progress-step.active .step-indicator {
+      border-color: var(--catalina-blue);
+      background: rgba(9, 35, 114, 0.06);
+    }
+
+    .progress-step.active .step-indicator::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--catalina-blue);
+      border-radius: 50%;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+
+    .progress-step.done .step-indicator {
+      border-color: #2e7d32;
+      background: #e8f5e9;
+    }
+
+    .progress-step.done .step-indicator::after {
+      content: '';
+      display: none;
+    }
+
+    .progress-step.done .step-indicator svg {
+      display: block;
+    }
+
+    .step-indicator svg {
+      display: none;
+      width: 14px;
+      height: 14px;
+      color: #2e7d32;
+    }
+
+    .step-elapsed {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--roman-silver);
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .chat-messages {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--gunmetal);
+    }
+
+    .chat-messages p {
+      margin-bottom: 8px;
+    }
+
+    .chat-complete {
+      display: none;
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: #e8f5e9;
+      border: 1px solid #c8e6c9;
+      border-radius: 10px;
+      font-size: 14px;
+      color: #2e7d32;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    .chat-complete svg {
+      color: #2e7d32;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    /* ── What You Get ── */
+    .features {
+      padding: 100px 32px;
+      background: var(--bg-white);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 64px;
+    }
+
+    .feature-card {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--catalina-blue);
+      box-shadow: 0 4px 16px rgba(9, 35, 114, 0.06);
+    }
+
+    .feature-card h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(9, 35, 114, 0.06);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .feature-icon svg {
+      width: 20px;
+      height: 20px;
+      color: var(--catalina-blue);
+    }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      padding: 80px 32px;
+      background: linear-gradient(160deg, var(--catalina-blue) 0%, var(--royal-blue) 100%);
+      text-align: center;
+      color: var(--bg-white);
+    }
+
+    .cta-section h2 {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      font-size: 17px;
+      color: var(--pastel-blue);
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .cta-section a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      background: var(--orange);
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .cta-section a:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 64px 32px 0;
+      background: #0a0a1a;
+      color: rgba(255, 255, 255, 0.7);
+      border-top: 1px solid rgba(168, 203, 190, 0.08);
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 48px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer-logo {
+      height: 28px;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+
+    .footer-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 20px;
+    }
+
+    .footer-col p {
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-col a {
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 14px;
+      line-height: 2.2;
+      display: block;
+      transition: color 0.2s;
+    }
+
+    .footer-col a:hover {
+      color: var(--orange);
+    }
+
+    .footer-contact {
+      font-size: 14px;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    .footer-contact a {
+      display: inline;
+      font-size: 14px;
+    }
+
+    .footer-address {
+      margin-top: 12px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-bottom {
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-bottom p {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-bottom a {
+      color: rgba(255, 255, 255, 0.45);
+      text-decoration: none;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--orange);
+    }
+
+    /* ── Why It Matters ── */
+    .why-matters {
+      padding: 100px 32px;
+      background: var(--bg-white);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(8, 29, 91, 0.12);
+      margin-bottom: 64px;
+      box-shadow: 0 4px 24px rgba(8, 29, 91, 0.07);
+    }
+
+    .stat-block {
+      background: linear-gradient(160deg, var(--royal-blue) 0%, var(--catalina-blue) 100%);
+      padding: 36px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      border-right: 1px solid rgba(255, 255, 255, 0.07);
+    }
+
+    .stat-block:last-child {
+      border-right: none;
+    }
+
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.65);
+      line-height: 1.5;
+      max-width: 180px;
+    }
+
+    .issues-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .issue-card {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .issue-card:hover {
+      border-color: rgba(9, 35, 114, 0.2);
+      box-shadow: 0 4px 16px rgba(9, 35, 114, 0.06);
+    }
+
+    .issue-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, rgba(9, 35, 114, 0.08) 0%, rgba(9, 35, 114, 0.04) 100%);
+      border: 1px solid rgba(9, 35, 114, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .issue-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--catalina-blue);
+    }
+
+    .issue-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 6px;
+    }
+
+    .issue-content p {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      line-height: 1.65;
+    }
+
+    .silver-lining {
+      background: linear-gradient(135deg, rgba(247, 158, 12, 0.08) 0%, rgba(247, 158, 12, 0.03) 100%);
+      border: 1px solid rgba(247, 158, 12, 0.25);
+      border-left: 4px solid var(--orange);
+      border-radius: 12px;
+      padding: 32px 36px;
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .silver-lining-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(247, 158, 12, 0.15);
+      border: 1px solid rgba(247, 158, 12, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .silver-lining-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--orange);
+    }
+
+    .silver-lining-content .silver-lining-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 6px;
+    }
+
+    .silver-lining-content h4 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 8px;
+    }
+
+    .silver-lining-content p {
+      font-size: 15px;
+      color: var(--storm-cloud);
+      line-height: 1.65;
+    }
+
+    /* ── Analysis Waiting Panel ── */
+    #assessmentInfoStatic {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #assessmentInfoStatic.hidden {
+      opacity: 0;
+      transform: translateY(-8px);
+      display: none;
+    }
+
+    .analysis-panel {
+      display: none;
+    }
+
+    .analysis-panel.active {
+      display: block;
+      animation: slideUp 0.5s ease-out;
+    }
+
+    .analysis-domain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--storm-cloud);
+      background: rgba(9, 35, 114, 0.05);
+      border: 1px solid rgba(9, 35, 114, 0.1);
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 20px;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .analysis-domain-badge svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: var(--catalina-blue);
+    }
+
+    .analysis-domain-badge strong {
+      color: var(--gunmetal);
+      font-weight: 600;
+    }
+
+    .analysis-heading {
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-weight: 700;
+      color: var(--gunmetal);
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .analysis-sub {
+      font-size: 15px;
+      color: var(--storm-cloud);
+      margin-bottom: 32px;
+      line-height: 1.65;
+    }
+
+    /* Radar visual */
+    .radar-wrap {
+      position: relative;
+      width: 144px;
+      height: 144px;
+      margin: 0 0 16px 0;
+    }
+
+    .radar-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(9, 35, 114, 0.09);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .radar-ring.r1 { width: 44px; height: 44px; }
+    .radar-ring.r2 { width: 84px; height: 84px; }
+    .radar-ring.r3 { width: 124px; height: 124px; }
+
+    .radar-pulse {
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1.5px solid rgba(9, 35, 114, 0.4);
+      animation: radarExpand 2.4s ease-out infinite;
+    }
+
+    .radar-pulse.p1 { animation-delay: 0s; }
+    .radar-pulse.p2 { animation-delay: 0.8s; }
+    .radar-pulse.p3 { animation-delay: 1.6s; }
+
+    @keyframes radarExpand {
+      0%   { width: 16px; height: 16px; opacity: 1;   border-color: rgba(9, 35, 114, 0.45); }
+      100% { width: 144px; height: 144px; opacity: 0; border-color: rgba(9, 35, 114, 0); }
+    }
+
+    .radar-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--catalina-blue) 0%, var(--absolute-zero) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(9, 35, 114, 0.28);
+    }
+
+    .radar-center svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+
+    /* Step label */
+    .analysis-step-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--catalina-blue);
+      margin-bottom: 28px;
+      min-height: 20px;
+    }
+
+    .analysis-step-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--catalina-blue);
+      flex-shrink: 0;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    /* Insight cards */
+    .insight-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--roman-silver);
+      margin-bottom: 12px;
+    }
+
+    .insight-cards-wrap {
+      position: relative;
+      min-height: 130px;
+    }
+
+    .insight-card {
+      display: none;
+      padding: 22px 24px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      border-left: 4px solid var(--catalina-blue);
+    }
+
+    .insight-card.active {
+      display: block;
+      animation: slideUp 0.45s ease-out;
+    }
+
+    .insight-stat {
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .insight-text {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .insight-source {
+      font-size: 11px;
+      color: var(--roman-silver);
+    }
+
+    .insight-dots {
+      display: flex;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .insight-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gainsboro);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .insight-dot.active {
+      background: var(--catalina-blue);
+      transform: scale(1.5);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+      .assessment-grid { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr; gap: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero { padding: 120px 24px 80px; }
+      .how-it-works, .assessment, .features { padding: 72px 24px; }
+      .form-card { padding: 28px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .trust-bar-inner { grid-template-columns: 1fr 1fr; }
+      .trust-item { border-right: none; border-bottom: 1px solid rgba(168, 203, 190, 0.1); }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .issues-grid { grid-template-columns: 1fr; }
+      .silver-lining { flex-direction: column; gap: 16px; }
+      .why-matters { padding: 72px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <img src="https://www.mindalizer.com/wp-content/uploads/2020/02/mind-full-h-White-1.png" alt="Mindalizer" class="logo">
+      <a href="#assessment" class="header-cta">Get your assessment</a>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">Free Assessment</div>
+      <h1>Is your website ready for the <span>AI era</span>?</h1>
+      <p>Most websites are invisible to AI assistants. Our LLM-Readiness Assessment analyzes your site and delivers a concrete action plan to make your content discoverable, citable, and authoritative for Large Language Models.</p>
+      <a href="#assessment" class="hero-cta">
+        Start free assessment
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-item trust-item--free">
+        <div class="trust-icon-wrap trust-icon-wrap--free">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        </div>
+        100% Free
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        Results in minutes
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        25+ criteria analyzed
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon-wrap">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        Report delivered by email
+      </div>
+    </div>
+  </section>
+
+  <!-- Why It Matters -->
+  <section class="why-matters">
+    <div class="section-inner">
+      <div class="section-label">Why it matters</div>
+      <h2 class="section-title">Your website may already be invisible to AI</h2>
+      <p class="section-subtitle">Search is being fundamentally rewritten. AI assistants are the new gatekeepers — and most websites are not even in the conversation.</p>
+
+      <!-- Stats -->
+      <div class="stats-row">
+        <div class="stat-block">
+          <span class="stat-number">6/10</span>
+          <span class="stat-label">searches now show AI answers directly on the results page, halving click-through rates</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">−25%</span>
+          <span class="stat-label">drop in traditional search traffic expected by 2026 as users adopt AI tools</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">2–7</span>
+          <span class="stat-label">domains cited in a typical AI response, vs. 10 blue links in traditional search</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-number">3×</span>
+          <span class="stat-label">higher conversion rate for users who arrive via an AI citation or recommendation</span>
+        </div>
+      </div>
+
+      <!-- Issue Cards -->
+      <div class="issues-grid">
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/><circle cx="12" cy="12" r="3" fill="currentColor" opacity="0.12"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>The Rise of Zero-Click Searches</h4>
+            <p>AI Overviews and featured snippets appear in 6 out of 10 searches — and when they do, click-through rates are halved. Search engines now answer queries directly on the results page, keeping users on their own platform.</p>
+          </div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>Synthesized AI Responses</h4>
+            <p>ChatGPT, Perplexity, and Gemini combine insights from multiple sources into a single conversational answer. Users get what they need instantly — making the act of clicking through to individual websites redundant for most informational queries.</p>
+          </div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>Shifting User Behaviour</h4>
+            <p>Users increasingly turn to generative AI for fast, direct answers. AI systems use "query fan-out" to break complex questions into sub-questions and provide comprehensive summaries — eliminating the need for manual research across multiple sites.</p>
+          </div>
+        </div>
+        <div class="issue-card">
+          <div class="issue-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="issue-content">
+            <h4>A Compressed, High-Stakes Landscape</h4>
+            <p>AI responses cite only 2–7 domains, versus the 10 links of traditional search — drastically increasing competition. Sites that rank well for humans may be entirely invisible to AI if their content isn't structured for machine-legibility and LLM retrieval.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Silver Lining -->
+      <div class="silver-lining">
+        <div class="silver-lining-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="silver-lining-content">
+          <div class="silver-lining-label">The strategic opportunity</div>
+          <h4>Lower volume, far higher intent</h4>
+          <p>Despite the drop in raw traffic, users who click through after an AI interaction arrive with higher conviction and more context — converting at up to <strong>3× the rate</strong> of traditional search visitors. In the AI era, visibility is measured not by clicks alone, but by whether your brand is <strong>included, cited, and recommended</strong> within the AI's response layer. The businesses that optimise for this now will own the next decade of search.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works">
+    <div class="section-inner">
+      <div class="section-label">How it works</div>
+      <h2 class="section-title">Three steps to AI visibility</h2>
+      <p class="section-subtitle">We analyze your website using the same techniques that AI assistants use to understand and recommend businesses.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">
+            <!-- Globe with pointer/link icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/><circle cx="19" cy="19" r="3" fill="currentColor" stroke="none" opacity="0.2"/><path d="M18 18l2 2" stroke-width="2.5"/></svg>
+          </div>
+          <div class="step-number">01</div>
+          <h3>Submit your website</h3>
+          <p>Enter your URL and a few details about your business. The more context you provide, the more tailored your report will be.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <!-- Brain / neural network icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A3.5 3.5 0 0 0 6 5.5c0 .59.15 1.15.42 1.63A3.5 3.5 0 0 0 4 10.5c0 1.13.54 2.14 1.38 2.78A3.5 3.5 0 0 0 4 16a3.5 3.5 0 0 0 3.5 3.5c.59 0 1.14-.15 1.63-.42A3.5 3.5 0 0 0 12 21a3.5 3.5 0 0 0 2.87-1.5c.49.27 1.04.42 1.63.42A3.5 3.5 0 0 0 20 16.42a3.5 3.5 0 0 0-1.38-2.64A3.5 3.5 0 0 0 20 10.5a3.5 3.5 0 0 0-2.42-3.37c.27-.48.42-1.04.42-1.63A3.5 3.5 0 0 0 14.5 2c-.59 0-1.14.15-1.63.42A3.49 3.49 0 0 0 12 2c-.37 0-.73.06-1.07.16A3.48 3.48 0 0 0 9.5 2z"/><path d="M12 2v19" opacity="0.3"/><path d="M4.5 13h15" opacity="0.3"/></svg>
+          </div>
+          <div class="step-number">02</div>
+          <h3>AI-powered analysis</h3>
+          <p>We crawl your site, extract structured data, and evaluate your content against 25+ LLM-readiness criteria across 4 dimensions.</p>
+        </div>
+        <div class="step">
+          <div class="step-icon">
+            <!-- Dashboard / chart report icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/><rect x="12" y="13" width="3" height="5" rx="0.5" fill="currentColor" opacity="0.15"/><rect x="16" y="11" width="3" height="7" rx="0.5" fill="currentColor" opacity="0.15"/><line x1="12" y1="13" x2="15" y2="13"/><line x1="12" y1="18" x2="15" y2="18"/><line x1="16" y1="11" x2="19" y2="11"/><line x1="16" y1="18" x2="19" y2="18"/><circle cx="6" cy="14" r="1.5" fill="currentColor" opacity="0.2"/><path d="M6 17v1"/></svg>
+          </div>
+          <div class="step-number">03</div>
+          <h3>Get your report</h3>
+          <p>Receive a detailed assessment with scores, actionable recommendations, and a prioritized implementation roadmap directly to your email.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Assessment Form -->
+  <section class="assessment" id="assessment">
+    <div class="section-inner">
+      <div class="assessment-grid">
+        <div class="assessment-info">
+
+          <!-- Static state (hidden after submit) -->
+          <div id="assessmentInfoStatic">
+            <div class="section-label">Free assessment</div>
+            <h2>Get your LLM-Readiness score</h2>
+            <p>Fill in the form and we'll analyze your website across four critical dimensions. Your personalized report will be delivered to your inbox within minutes.</p>
+            <ul class="info-list">
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                <div><strong>Structure & Navigation</strong> &mdash; Site architecture, headings, internal linking, and URL hierarchy</div>
+              </li>
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                <div><strong>Content Quality</strong> &mdash; Depth, specificity, authority signals, and educational value</div>
+              </li>
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                <div><strong>Technical SEO</strong> &mdash; Schema.org markup, metadata, structured data, and crawlability</div>
+              </li>
+              <li>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+                <div><strong>AI Preparation</strong> &mdash; LLM-specific optimization, citability, and content discoverability</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Analysis waiting panel (shown after submit) -->
+          <div class="analysis-panel" id="analysisPanel">
+
+            <!-- Domain being scanned -->
+            <div class="analysis-domain-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Scanning: <strong id="analysisDomainText">yoursite.com</strong>
+            </div>
+
+            <h2 class="analysis-heading">Analyzing your website</h2>
+            <p class="analysis-sub">Our AI is examining your site right now. Here's what we're learning about the AI visibility landscape while you wait.</p>
+
+            <!-- Radar scan visual -->
+            <div class="radar-wrap">
+              <div class="radar-ring r1"></div>
+              <div class="radar-ring r2"></div>
+              <div class="radar-ring r3"></div>
+              <div class="radar-pulse p1"></div>
+              <div class="radar-pulse p2"></div>
+              <div class="radar-pulse p3"></div>
+              <div class="radar-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+              </div>
+            </div>
+
+            <!-- Current step label -->
+            <div class="analysis-step-label" id="analysisStepLabel">
+              <span class="analysis-step-dot"></span>
+              <span id="analysisStepText">Initializing...</span>
+            </div>
+
+            <!-- Rotating insight cards -->
+            <div class="insight-section-label">While you wait — AI search in numbers</div>
+            <div class="insight-cards-wrap" id="insightCardsWrap">
+              <div class="insight-card active" data-card="0">
+                <div class="insight-stat">6/10</div>
+                <div class="insight-text">Google searches now show an AI-generated answer on the results page — cutting click-through rates by up to 50%.</div>
+                <div class="insight-source">SparkToro / Rand Fishkin, 2024</div>
+              </div>
+              <div class="insight-card" data-card="1">
+                <div class="insight-stat">2–7</div>
+                <div class="insight-text">domains are cited in a typical AI response, versus 10 blue links in traditional search. Getting cited is now a zero-sum game.</div>
+                <div class="insight-source">Search Engine Journal, 2025</div>
+              </div>
+              <div class="insight-card" data-card="2">
+                <div class="insight-stat">3×</div>
+                <div class="insight-text">higher conversion rate for visitors who arrive via an AI citation. They arrive with more context and higher intent than classic search traffic.</div>
+                <div class="insight-source">Gartner Digital Commerce, 2025</div>
+              </div>
+              <div class="insight-card" data-card="3">
+                <div class="insight-stat">−25%</div>
+                <div class="insight-text">expected drop in traditional organic search traffic by 2026 as users shift to conversational AI tools for research and discovery.</div>
+                <div class="insight-source">Gartner, 2024</div>
+              </div>
+            </div>
+            <div class="insight-dots" id="insightDots">
+              <div class="insight-dot active" data-dot="0"></div>
+              <div class="insight-dot" data-dot="1"></div>
+              <div class="insight-dot" data-dot="2"></div>
+              <div class="insight-dot" data-dot="3"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div>
+          <div class="form-card" id="formCard">
+            <h3>Start your assessment</h3>
+            <p>All fields help us deliver a more accurate analysis.</p>
+            <form id="assessmentForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your name</label>
+                  <input type="text" id="name" name="name" placeholder="John Smith" required>
+                </div>
+                <div class="form-group">
+                  <label for="email">Business email</label>
+                  <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="url">Website URL</label>
+                <input type="url" id="url" name="url" placeholder="https://www.yourwebsite.com" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="businessType">Business type</label>
+                  <select id="businessType" name="businessType">
+                    <option value="">Select...</option>
+                    <option value="SaaS / Software">SaaS / Software</option>
+                    <option value="E-commerce">E-commerce</option>
+                    <option value="Professional Services">Professional Services</option>
+                    <option value="Consulting / Agency">Consulting / Agency</option>
+                    <option value="Healthcare">Healthcare</option>
+                    <option value="Finance / Insurance">Finance / Insurance</option>
+                    <option value="Education">Education</option>
+                    <option value="Real Estate">Real Estate</option>
+                    <option value="Hospitality / Tourism">Hospitality / Tourism</option>
+                    <option value="Non-profit">Non-profit</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="goal">Main goal</label>
+                  <select id="goal" name="goal">
+                    <option value="">Select...</option>
+                    <option value="Get discovered by AI assistants">Get discovered by AI assistants</option>
+                    <option value="Improve search visibility">Improve search visibility</option>
+                    <option value="Content strategy overhaul">Content strategy overhaul</option>
+                    <option value="Technical SEO improvement">Technical SEO improvement</option>
+                    <option value="Competitive analysis">Competitive analysis</option>
+                    <option value="General website audit">General website audit</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="context">Additional context <span style="color:var(--roman-silver);font-weight:400;">(optional)</span></label>
+                <textarea id="context" name="context" placeholder="Tell us about your business, target audience, key services, or specific concerns..."></textarea>
+              </div>
+              <button type="submit" class="form-submit" id="submitBtn">
+                Run assessment
+              </button>
+              <p class="form-note">Free assessment. Report delivered to your email within minutes.</p>
+            </form>
+          </div>
+
+          <!-- Chat Response Area -->
+          <div class="chat-response" id="chatResponse">
+            <div class="chat-response-header">
+              <div class="chat-spinner" id="chatSpinner"></div>
+              <span id="chatStatus">Analyzing your website...</span>
+            </div>
+            <div class="progress-bar-container">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <ul class="progress-steps" id="progressSteps">
+              <li class="progress-step" data-step="0">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Connecting to analysis engine
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="1">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Scraping website content
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="2">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Extracting links &amp; site structure
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="3">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Mapping all site pages
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="4">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Running AI-powered analysis
+                <span class="step-elapsed"></span>
+              </li>
+              <li class="progress-step" data-step="5">
+                <span class="step-indicator"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg></span>
+                Generating report &amp; sending email
+                <span class="step-elapsed"></span>
+              </li>
+            </ul>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-complete" id="chatComplete">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
+              <strong>Assessment complete!</strong> A detailed report has been sent to your email.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Get -->
+  <section class="features">
+    <div class="section-inner">
+      <div class="section-label">Your report includes</div>
+      <h2 class="section-title">Everything you need to take action</h2>
+      <p class="section-subtitle">A comprehensive assessment scored across four dimensions, with specific recommendations for each page of your website.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h4>LLM-Readiness Score</h4>
+          <p>A clear score out of 100, broken down across Structure, Content, Technical SEO, and AI Preparation dimensions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h4>Page-by-page plan</h4>
+          <p>Specific recommendations for each page of your site, including content rewrites, metadata, and structured data additions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          </div>
+          <h4>Company profile</h4>
+          <p>We extract and organize your company data the way AI models see it, highlighting gaps in your business information.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h4>Strengths & weaknesses</h4>
+          <p>Clear identification of what your site does well and where the critical gaps are, prioritized by impact.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h4>Implementation roadmap</h4>
+          <p>A phased action plan with Quick Wins (1-2 weeks), Medium-term (1-3 months), and Strategic (3-6 months) recommendations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <h4>Email delivery</h4>
+          <p>Your complete report is delivered as a beautifully formatted email you can share with your team or developers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="section-inner">
+      <h2>Ready to make your website AI-visible?</h2>
+      <p>Join forward-thinking businesses that are already optimizing their content for the age of AI assistants.</p>
+      <a href="#assessment">
+        Get your free assessment
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <img src="https://www.mindalizer.com/wp-content/uploads/2020/02/mind-full-h-White-1.png" alt="Mindalizer" class="footer-logo">
+          <div class="footer-label">We Are</div>
+          <p>A boutique consulting firm focused on redesigning systems, aligning strategy, and embedding intelligent transformation.</p>
+        </div>
+        <div class="footer-col">
+          <div class="footer-label">Contacts</div>
+          <div class="footer-contact">
+            <a href="tel:+351915356052">+351 915 356 052</a>
+            <a href="mailto:info@mindalizer.com">info@mindalizer.com</a>
+          </div>
+          <div class="footer-address">
+            Av. D. Jo&atilde;o II, n&ordm;50 &ndash; 4&ordm;<br>
+            Parque das Na&ccedil;&otilde;es<br>
+            1990-095 Lisboa<br>
+            Portugal
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-label">Social Media</div>
+          <a href="https://www.linkedin.com/company/mindalizer/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <div class="footer-col">
+          <div class="footer-label">Resources</div>
+          <a href="https://www.mindalizer.com/brandbook/" target="_blank" rel="noopener">Mindalizer's Brandbook</a>
+          <a href="https://www.mindalizer.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Mindalizer Consulting. Designed for Transformation.</p>
+        <a href="https://www.mindalizer.com/privacy-policy/" target="_blank" rel="noopener">Privacy Policy and Full List of Credits</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll effect
+    var header = document.getElementById('header');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Chat webhook URL
+    var WEBHOOK_URL = 'https://mindalizerai.app.n8n.cloud/webhook/llm-readiness-v6/chat';
+
+    // ── Analysis panel ──
+    var analysisStepLabels = [
+      'Connecting to analysis engine...',
+      'Scraping website content...',
+      'Extracting links & site structure...',
+      'Mapping all site pages...',
+      'Running AI-powered analysis...',
+      'Generating report & sending email...'
+    ];
+
+    function showAnalysisPanel(url) {
+      var domain = url.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+      var staticEl = document.getElementById('assessmentInfoStatic');
+      var panelEl = document.getElementById('analysisPanel');
+      var domainText = document.getElementById('analysisDomainText');
+
+      staticEl.classList.add('hidden');
+      domainText.textContent = domain;
+      panelEl.classList.add('active');
+
+      showInsightCard(0);
+      startInsightRotation();
+    }
+
+    function updateAnalysisStep(index) {
+      var stepText = document.getElementById('analysisStepText');
+      if (stepText && index < analysisStepLabels.length) {
+        stepText.textContent = analysisStepLabels[index];
+      }
+    }
+
+    // ── Insight card rotation ──
+    var insightCardIndex = 0;
+    var insightInterval = null;
+
+    function showInsightCard(index) {
+      var cards = document.querySelectorAll('.insight-card');
+      var dots = document.querySelectorAll('.insight-dot');
+      insightCardIndex = ((index % 4) + 4) % 4;
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].classList.remove('active');
+        dots[i].classList.remove('active');
+      }
+      cards[insightCardIndex].classList.add('active');
+      dots[insightCardIndex].classList.add('active');
+    }
+
+    function startInsightRotation() {
+      if (insightInterval) clearInterval(insightInterval);
+      insightInterval = setInterval(function() {
+        showInsightCard(insightCardIndex + 1);
+      }, 7000);
+    }
+
+    // Insight dot click handlers
+    document.querySelectorAll('.insight-dot').forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        clearInterval(insightInterval);
+        showInsightCard(parseInt(dot.getAttribute('data-dot')));
+        startInsightRotation();
+      });
+    });
+
+    // Generate session ID
+    function generateSessionId() {
+      return 'web-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    // Progress controller
+    var progressState = {
+      currentStep: -1,
+      startTime: null,
+      stepTimers: [],
+      elapsedInterval: null
+    };
+
+    function activateStep(index) {
+      var steps = document.querySelectorAll('.progress-step');
+      var progressBar = document.getElementById('progressBar');
+      var chatStatus = document.getElementById('chatStatus');
+      var totalSteps = steps.length;
+
+      // Mark previous steps as done
+      for (var i = 0; i <= index - 1; i++) {
+        steps[i].classList.remove('active');
+        steps[i].classList.add('done');
+      }
+
+      // Activate current step
+      if (index < totalSteps) {
+        steps[index].classList.add('active');
+        steps[index].classList.remove('done');
+        var stepText = steps[index].textContent.trim().split('\n')[0].trim();
+        chatStatus.textContent = stepText + '...';
+      }
+
+      // Sync left-panel step label
+      updateAnalysisStep(index);
+
+      // Update progress bar
+      var pct = Math.min(((index + 0.5) / totalSteps) * 100, 100);
+      progressBar.style.width = pct + '%';
+
+      progressState.currentStep = index;
+    }
+
+    function startElapsedTimer() {
+      progressState.startTime = Date.now();
+      progressState.elapsedInterval = setInterval(function() {
+        var steps = document.querySelectorAll('.progress-step');
+        var idx = progressState.currentStep;
+        if (idx >= 0 && idx < steps.length) {
+          var elapsed = Math.floor((Date.now() - progressState.startTime) / 1000);
+          var min = Math.floor(elapsed / 60);
+          var sec = elapsed % 60;
+          var timeStr = min > 0 ? min + 'm ' + sec + 's' : sec + 's';
+          var elSpan = steps[idx].querySelector('.step-elapsed');
+          if (elSpan) elSpan.textContent = timeStr;
+        }
+      }, 1000);
+    }
+
+    function completeAllSteps() {
+      var steps = document.querySelectorAll('.progress-step');
+      var progressBar = document.getElementById('progressBar');
+      for (var i = 0; i < steps.length; i++) {
+        steps[i].classList.remove('active');
+        steps[i].classList.add('done');
+      }
+      progressBar.style.width = '100%';
+      clearInterval(progressState.elapsedInterval);
+
+      // Clear all pending timers
+      progressState.stepTimers.forEach(function(t) { clearTimeout(t); });
+      progressState.stepTimers = [];
+    }
+
+    // Form submission
+    var form = document.getElementById('assessmentForm');
+    var submitBtn = document.getElementById('submitBtn');
+    var chatResponse = document.getElementById('chatResponse');
+    var chatMessages = document.getElementById('chatMessages');
+    var chatStatus = document.getElementById('chatStatus');
+    var chatSpinner = document.getElementById('chatSpinner');
+    var chatComplete = document.getElementById('chatComplete');
+    var formCard = document.getElementById('formCard');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var url = document.getElementById('url').value.trim();
+      var businessType = document.getElementById('businessType').value;
+      var goal = document.getElementById('goal').value;
+      var context = document.getElementById('context').value.trim();
+
+      // Build structured message
+      var message = url;
+      message += '\n\n---CONTEXT---';
+      message += '\nName: ' + name;
+      message += '\nEmail: ' + email;
+      if (businessType) message += '\nBusiness Type: ' + businessType;
+      if (goal) message += '\nMain Goal: ' + goal;
+      if (context) message += '\nAdditional Context: ' + context;
+      message += '\n---END CONTEXT---';
+
+      // Disable form
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Analyzing...';
+
+      // Show analysis panel on the left
+      showAnalysisPanel(url);
+
+      // Show response area
+      chatResponse.classList.add('active');
+      chatMessages.innerHTML = '';
+
+      // Scroll to response
+      chatResponse.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // Start progress animation
+      startElapsedTimer();
+      var stepDelays = [0, 3000, 7000, 12000, 20000, 35000];
+      stepDelays.forEach(function(delay, i) {
+        var t = setTimeout(function() { activateStep(i); }, delay);
+        progressState.stepTimers.push(t);
+      });
+
+      var sessionId = generateSessionId();
+
+      // Send to n8n webhook
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'sendMessage',
+          chatInput: message,
+          sessionId: sessionId
+        })
+      })
+      .then(function(response) { return response.json(); })
+      .then(function(data) {
+        // Handle response
+        var output = data.output || data.text || (data[0] && data[0].output) || 'Analysis complete.';
+
+        // Complete all steps
+        completeAllSteps();
+        chatSpinner.style.display = 'none';
+        chatStatus.textContent = 'Analysis complete';
+        chatComplete.style.display = 'block';
+        submitBtn.textContent = 'Assessment sent!';
+      })
+      .catch(function(err) {
+        completeAllSteps();
+        chatSpinner.style.display = 'none';
+        chatStatus.textContent = 'Assessment submitted';
+        chatMessages.innerHTML = '<p>Your assessment is being processed. The detailed report will be sent to <strong>' + email + '</strong> within a few minutes.</p>';
+        chatComplete.style.display = 'block';
+        submitBtn.textContent = 'Assessment requested';
+      });
+    });
+  </script>
+</body>
+</html>
