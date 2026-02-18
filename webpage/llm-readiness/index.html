@@ -1811,6 +1811,18 @@
       domainText.textContent = domain;
       panelEl.classList.add('active');
 
+      // Align panel top with the chat response area on the right
+      setTimeout(function() {
+        var infoEl = document.querySelector('.assessment-info');
+        var chatEl = document.getElementById('chatResponse');
+        if (infoEl && chatEl) {
+          var infoTop = infoEl.getBoundingClientRect().top;
+          var chatTop = chatEl.getBoundingClientRect().top;
+          var offset = Math.max(0, chatTop - infoTop);
+          panelEl.style.paddingTop = offset + 'px';
+        }
+      }, 60);
+
       showInsightCard(0);
       startInsightRotation();
     }
