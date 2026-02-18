@@ -1072,6 +1072,8 @@
     .analysis-panel.active {
       display: block;
       animation: slideUp 0.5s ease-out;
+      position: sticky;
+      top: 88px; /* clears the fixed header */
     }
 
     .analysis-domain-badge {
@@ -1811,23 +1813,11 @@
       domainText.textContent = domain;
       panelEl.classList.add('active');
 
-      // Align panel top with the chat response area on the right
-      setTimeout(function() {
-        var infoEl = document.querySelector('.assessment-info');
-        var chatEl = document.getElementById('chatResponse');
-        if (infoEl && chatEl) {
-          var infoTop = infoEl.getBoundingClientRect().top;
-          var chatTop = chatEl.getBoundingClientRect().top;
-          var offset = Math.max(0, chatTop - infoTop);
-          panelEl.style.paddingTop = offset + 'px';
-        }
-      }, 60);
-
       showInsightCard(0);
       startInsightRotation();
     }
 
-    function updateAnalysisStep(index) {
+function updateAnalysisStep(index) {
       var stepText = document.getElementById('analysisStepText');
       if (stepText && index < analysisStepLabels.length) {
         stepText.textContent = analysisStepLabels[index];
