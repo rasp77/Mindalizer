@@ -1274,23 +1274,94 @@
     }
 
     /* ── Responsive ── */
+
+    /* Prevent horizontal overflow globally */
+    html, body { overflow-x: hidden; }
+
     @media (max-width: 768px) {
-      .steps { grid-template-columns: 1fr; gap: 40px; }
-      .assessment-grid { grid-template-columns: 1fr; gap: 48px; }
-      .features-grid { grid-template-columns: 1fr; gap: 24px; }
-      .form-row { grid-template-columns: 1fr; }
-      .hero { padding: 120px 24px 80px; }
-      .how-it-works, .assessment, .features { padding: 72px 24px; }
-      .form-card { padding: 28px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      /* Header */
+      .header-inner { padding: 0 16px; }
+      .logo { height: 22px; }
+      .header-cta { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
+
+      /* Hero – dark background fallback so text is always visible */
+      .hero {
+        background-color: var(--royal-blue);
+        padding: 110px 24px 72px;
+      }
+      .hero h1 { font-size: clamp(28px, 7vw, 40px); }
+      .hero p { font-size: 16px; margin-bottom: 32px; }
+
+      /* Trust bar – 2 columns, full width items */
       .trust-bar-inner { grid-template-columns: 1fr 1fr; }
-      .trust-item { border-right: none; border-bottom: 1px solid rgba(168, 203, 190, 0.1); }
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .trust-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(168, 203, 190, 0.1);
+        padding: 18px 12px;
+        font-size: 13px;
+      }
+      .trust-item:nth-child(2n) { border-bottom: 1px solid rgba(168, 203, 190, 0.1); }
+      .trust-item:last-child, .trust-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+
+      /* Why it matters */
+      .why-matters { padding: 64px 24px; }
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+      }
+      .stat-block {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        padding: 24px 20px;
+      }
+      .stat-number { font-size: 36px; }
       .issues-grid { grid-template-columns: 1fr; }
-      .silver-lining { flex-direction: column; gap: 16px; }
-      .why-matters { padding: 72px 24px; }
+      .issue-card { padding: 24px; }
+      .silver-lining { flex-direction: column; gap: 16px; padding: 24px; }
+
+      /* How it works */
+      .how-it-works { padding: 64px 24px; }
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+
+      /* Assessment form */
+      .assessment { padding: 64px 24px; }
+      .assessment-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-card { padding: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Analysis panel – no sticky on mobile (single column) */
+      .analysis-panel.active { position: static; }
+      .radar-wrap { width: 100px; height: 100px; }
+      .radar-ring.r1 { width: 32px; height: 32px; }
+      .radar-ring.r2 { width: 60px; height: 60px; }
+      .radar-ring.r3 { width: 88px; height: 88px; }
+      @keyframes radarExpand {
+        0%   { width: 12px; height: 12px; opacity: 1; }
+        100% { width: 100px; height: 100px; opacity: 0; }
+      }
+
+      /* Features */
+      .features { padding: 64px 24px; }
+      .features-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Footer – single column on mobile */
+      .footer { padding: 48px 24px 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+      /* Section typography */
+      .section-title { font-size: clamp(24px, 6vw, 32px); }
+      .section-subtitle { font-size: 15px; margin-bottom: 40px; }
+    }
+
+    @media (max-width: 480px) {
+      /* Extra small screens */
+      .trust-bar-inner { grid-template-columns: 1fr; }
+      .trust-item { justify-content: flex-start; }
+      .stats-row { grid-template-columns: 1fr; }
+      .hero-cta { width: 100%; justify-content: center; }
+      .form-card { padding: 20px; }
+      .stat-number { font-size: 40px; }
     }
   </style>
 </head>
