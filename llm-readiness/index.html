@@ -315,6 +315,9 @@
       line-height: 1.6;
     }
 
+    .why-matters .section-subtitle,
+    .how-it-works .section-subtitle { max-width: none; }
+
     .steps {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -325,12 +328,18 @@
       position: relative;
     }
 
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
     .step-number {
       font-size: 48px;
       font-weight: 700;
       color: var(--gainsboro);
       line-height: 1;
-      margin-bottom: 16px;
     }
 
     .step h3 {
@@ -355,7 +364,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      flex-shrink: 0;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
@@ -482,6 +491,22 @@
     .form-group textarea:focus {
       border-color: var(--catalina-blue);
       box-shadow: 0 0 0 3px rgba(9, 35, 114, 0.08);
+    }
+
+    .form-group input.input-error {
+      border-color: #c0392b;
+      box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.1);
+    }
+
+    .field-error {
+      display: none;
+      margin-top: 6px;
+      font-size: 12px;
+      color: #c0392b;
+    }
+
+    .field-error.visible {
+      display: block;
     }
 
     .form-group textarea {
@@ -734,11 +759,18 @@
       box-shadow: 0 4px 16px rgba(9, 35, 114, 0.06);
     }
 
+    .feature-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
     .feature-card h4 {
       font-size: 16px;
       font-weight: 600;
       color: var(--gunmetal);
-      margin-bottom: 8px;
+      margin-bottom: 0;
     }
 
     .feature-card p {
@@ -755,7 +787,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 16px;
+      flex-shrink: 0;
     }
 
     .feature-icon svg {
@@ -953,16 +985,16 @@
     .issues-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-bottom: 40px;
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
     .issue-card {
-      padding: 32px;
+      padding: 20px 22px;
       border: 1px solid var(--border);
       border-radius: 12px;
       display: flex;
-      gap: 20px;
+      gap: 16px;
       align-items: flex-start;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
@@ -973,52 +1005,10 @@
     }
 
     .issue-icon {
-      width: 48px;
-      height: 48px;
+      width: 38px;
+      height: 38px;
       background: linear-gradient(135deg, rgba(9, 35, 114, 0.08) 0%, rgba(9, 35, 114, 0.04) 100%);
       border: 1px solid rgba(9, 35, 114, 0.1);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .issue-icon svg {
-      width: 22px;
-      height: 22px;
-      color: var(--catalina-blue);
-    }
-
-    .issue-content h4 {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--gunmetal);
-      margin-bottom: 6px;
-    }
-
-    .issue-content p {
-      font-size: 14px;
-      color: var(--storm-cloud);
-      line-height: 1.65;
-    }
-
-    .silver-lining {
-      background: linear-gradient(135deg, rgba(247, 158, 12, 0.08) 0%, rgba(247, 158, 12, 0.03) 100%);
-      border: 1px solid rgba(247, 158, 12, 0.25);
-      border-left: 4px solid var(--orange);
-      border-radius: 12px;
-      padding: 32px 36px;
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-    }
-
-    .silver-lining-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(247, 158, 12, 0.15);
-      border: 1px solid rgba(247, 158, 12, 0.3);
       border-radius: 10px;
       display: flex;
       align-items: center;
@@ -1026,52 +1016,384 @@
       flex-shrink: 0;
     }
 
+    .issue-icon svg {
+      width: 18px;
+      height: 18px;
+      color: var(--catalina-blue);
+    }
+
+    .issue-content h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gunmetal);
+      margin-bottom: 4px;
+    }
+
+    .issue-content p {
+      font-size: 13px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+    }
+
+    .silver-lining {
+      background: linear-gradient(135deg, rgba(247, 158, 12, 0.08) 0%, rgba(247, 158, 12, 0.03) 100%);
+      border: 1px solid rgba(247, 158, 12, 0.25);
+      border-left: 4px solid var(--orange);
+      border-radius: 12px;
+      padding: 22px 28px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .silver-lining-icon {
+      width: 36px;
+      height: 36px;
+      background: rgba(247, 158, 12, 0.15);
+      border: 1px solid rgba(247, 158, 12, 0.3);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
     .silver-lining-icon svg {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 18px;
       color: var(--orange);
     }
 
     .silver-lining-content .silver-lining-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
       color: var(--orange);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .silver-lining-content h4 {
-      font-size: 17px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--gunmetal);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .silver-lining-content p {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+    }
+
+    /* ── Analysis Waiting Panel ── */
+    #assessmentInfoStatic {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    #assessmentInfoStatic.hidden {
+      opacity: 0;
+      transform: translateY(-8px);
+      display: none;
+    }
+
+    .analysis-panel {
+      display: none;
+    }
+
+    .analysis-panel.active {
+      display: block;
+      animation: slideUp 0.5s ease-out;
+      position: sticky;
+      top: 88px; /* clears the fixed header */
+    }
+
+    .analysis-domain-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--storm-cloud);
+      background: rgba(9, 35, 114, 0.05);
+      border: 1px solid rgba(9, 35, 114, 0.1);
+      border-radius: 20px;
+      padding: 5px 14px;
+      margin-bottom: 20px;
+      max-width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .analysis-domain-badge svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: var(--catalina-blue);
+    }
+
+    .analysis-domain-badge strong {
+      color: var(--gunmetal);
+      font-weight: 600;
+    }
+
+    .analysis-heading {
+      font-size: clamp(22px, 2.8vw, 30px);
+      font-weight: 700;
+      color: var(--gunmetal);
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .analysis-sub {
       font-size: 15px;
       color: var(--storm-cloud);
+      margin-bottom: 32px;
       line-height: 1.65;
     }
 
+    /* Radar visual */
+    .radar-wrap {
+      position: relative;
+      width: 144px;
+      height: 144px;
+      margin: 0 0 16px 0;
+    }
+
+    .radar-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1.5px solid rgba(9, 35, 114, 0.09);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .radar-ring.r1 { width: 44px; height: 44px; }
+    .radar-ring.r2 { width: 84px; height: 84px; }
+    .radar-ring.r3 { width: 124px; height: 124px; }
+
+    .radar-pulse {
+      position: absolute;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1.5px solid rgba(9, 35, 114, 0.4);
+      animation: radarExpand 2.4s ease-out infinite;
+    }
+
+    .radar-pulse.p1 { animation-delay: 0s; }
+    .radar-pulse.p2 { animation-delay: 0.8s; }
+    .radar-pulse.p3 { animation-delay: 1.6s; }
+
+    @keyframes radarExpand {
+      0%   { width: 16px; height: 16px; opacity: 1;   border-color: rgba(9, 35, 114, 0.45); }
+      100% { width: 144px; height: 144px; opacity: 0; border-color: rgba(9, 35, 114, 0); }
+    }
+
+    .radar-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--catalina-blue) 0%, var(--absolute-zero) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(9, 35, 114, 0.28);
+    }
+
+    .radar-center svg {
+      width: 18px;
+      height: 18px;
+      color: #fff;
+    }
+
+    /* Step label */
+    .analysis-step-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--catalina-blue);
+      margin-bottom: 28px;
+      min-height: 20px;
+    }
+
+    .analysis-step-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--catalina-blue);
+      flex-shrink: 0;
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    /* Insight cards */
+    .insight-section-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--roman-silver);
+      margin-bottom: 12px;
+    }
+
+    .insight-cards-wrap {
+      position: relative;
+      min-height: 130px;
+    }
+
+    .insight-card {
+      display: none;
+      padding: 22px 24px;
+      background: var(--bg-white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      border-left: 4px solid var(--catalina-blue);
+    }
+
+    .insight-card.active {
+      display: block;
+      animation: slideUp 0.45s ease-out;
+    }
+
+    .insight-stat {
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .insight-text {
+      font-size: 14px;
+      color: var(--storm-cloud);
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .insight-source {
+      font-size: 11px;
+      color: var(--roman-silver);
+    }
+
+    .insight-dots {
+      display: flex;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .insight-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--gainsboro);
+      transition: background 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .insight-dot.active {
+      background: var(--catalina-blue);
+      transform: scale(1.5);
+    }
+
     /* ── Responsive ── */
+
+    /* Prevent horizontal overflow globally */
+    html, body { overflow-x: hidden; }
+
     @media (max-width: 768px) {
-      .steps { grid-template-columns: 1fr; gap: 40px; }
-      .assessment-grid { grid-template-columns: 1fr; gap: 48px; }
-      .features-grid { grid-template-columns: 1fr; gap: 24px; }
-      .form-row { grid-template-columns: 1fr; }
-      .hero { padding: 120px 24px 80px; }
-      .how-it-works, .assessment, .features { padding: 72px 24px; }
-      .form-card { padding: 28px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      /* Header */
+      .header-inner { padding: 0 16px; }
+      .logo { height: 22px; }
+      .header-cta { font-size: 11px; padding: 6px 12px; letter-spacing: 0; }
+
+      /* Hero – dark background fallback so text is always visible */
+      .hero {
+        background-color: var(--royal-blue);
+        padding: 110px 24px 72px;
+      }
+      .hero h1 { font-size: clamp(28px, 7vw, 40px); }
+      .hero p { font-size: 16px; margin-bottom: 32px; }
+
+      /* Trust bar – 2 columns, full width items */
       .trust-bar-inner { grid-template-columns: 1fr 1fr; }
-      .trust-item { border-right: none; border-bottom: 1px solid rgba(168, 203, 190, 0.1); }
-      .stats-row { grid-template-columns: 1fr 1fr; }
-      .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .trust-item {
+        border-right: none;
+        border-bottom: 1px solid rgba(168, 203, 190, 0.1);
+        padding: 18px 12px;
+        font-size: 13px;
+      }
+      .trust-item:nth-child(2n) { border-bottom: 1px solid rgba(168, 203, 190, 0.1); }
+      .trust-item:last-child, .trust-item:nth-last-child(2):nth-child(odd) { border-bottom: none; }
+
+      /* Why it matters */
+      .why-matters { padding: 64px 24px; }
+      .stats-row {
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+      }
+      .stat-block {
+        border-right: none;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        padding: 24px 20px;
+      }
+      .stat-number { font-size: 36px; }
       .issues-grid { grid-template-columns: 1fr; }
-      .silver-lining { flex-direction: column; gap: 16px; }
-      .why-matters { padding: 72px 24px; }
+      .issue-card { padding: 24px; }
+      .silver-lining { flex-direction: column; gap: 16px; padding: 24px; }
+
+      /* How it works */
+      .how-it-works { padding: 64px 24px; }
+      .steps { grid-template-columns: 1fr; gap: 40px; }
+
+      /* Assessment form */
+      .assessment { padding: 64px 24px; }
+      .assessment-grid { grid-template-columns: 1fr; gap: 40px; }
+      .form-card { padding: 24px; }
+      .form-row { grid-template-columns: 1fr; }
+
+      /* Analysis panel – no sticky on mobile (single column) */
+      .analysis-panel.active { position: static; }
+      .radar-wrap { width: 100px; height: 100px; }
+      .radar-ring.r1 { width: 32px; height: 32px; }
+      .radar-ring.r2 { width: 60px; height: 60px; }
+      .radar-ring.r3 { width: 88px; height: 88px; }
+      @keyframes radarExpand {
+        0%   { width: 12px; height: 12px; opacity: 1; }
+        100% { width: 100px; height: 100px; opacity: 0; }
+      }
+
+      /* Features */
+      .features { padding: 64px 24px; }
+      .features-grid { grid-template-columns: 1fr; gap: 16px; }
+
+      /* Footer – single column on mobile */
+      .footer { padding: 48px 24px 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+
+      /* Section typography */
+      .section-title { font-size: clamp(24px, 6vw, 32px); }
+      .section-subtitle { font-size: 15px; margin-bottom: 40px; }
+    }
+
+    @media (max-width: 480px) {
+      /* Extra small screens */
+      .trust-bar-inner { grid-template-columns: 1fr; }
+      .trust-item { justify-content: flex-start; }
+      .stats-row { grid-template-columns: 1fr; }
+      .hero-cta { width: 100%; justify-content: center; }
+      .form-card { padding: 20px; }
+      .stat-number { font-size: 40px; }
     }
   </style>
 </head>
@@ -1163,7 +1485,7 @@
           </div>
           <div class="issue-content">
             <h4>The Rise of Zero-Click Searches</h4>
-            <p>AI Overviews and featured snippets appear in 6 out of 10 searches — and when they do, click-through rates are halved. Search engines now answer queries directly on the results page, keeping users on their own platform.</p>
+            <p>AI Overviews appear in 6 out of 10 searches — halving click-through rates as search engines answer queries directly on the results page.</p>
           </div>
         </div>
         <div class="issue-card">
@@ -1172,7 +1494,7 @@
           </div>
           <div class="issue-content">
             <h4>Synthesized AI Responses</h4>
-            <p>ChatGPT, Perplexity, and Gemini combine insights from multiple sources into a single conversational answer. Users get what they need instantly — making the act of clicking through to individual websites redundant for most informational queries.</p>
+            <p>ChatGPT, Perplexity, and Gemini combine multiple sources into one answer — making individual website visits redundant for most informational queries.</p>
           </div>
         </div>
         <div class="issue-card">
@@ -1181,7 +1503,7 @@
           </div>
           <div class="issue-content">
             <h4>Shifting User Behaviour</h4>
-            <p>Users increasingly turn to generative AI for fast, direct answers. AI systems use "query fan-out" to break complex questions into sub-questions and provide comprehensive summaries — eliminating the need for manual research across multiple sites.</p>
+            <p>Users increasingly turn to AI for fast, direct answers — eliminating the need for manual research across multiple sites.</p>
           </div>
         </div>
         <div class="issue-card">
@@ -1190,7 +1512,7 @@
           </div>
           <div class="issue-content">
             <h4>A Compressed, High-Stakes Landscape</h4>
-            <p>AI responses cite only 2–7 domains, versus the 10 links of traditional search — drastically increasing competition. Sites that rank well for humans may be entirely invisible to AI if their content isn't structured for machine-legibility and LLM retrieval.</p>
+            <p>AI cites only 2–7 domains per response — sites ranking well for humans may be entirely invisible to AI without proper content structure.</p>
           </div>
         </div>
       </div>
@@ -1203,7 +1525,7 @@
         <div class="silver-lining-content">
           <div class="silver-lining-label">The strategic opportunity</div>
           <h4>Lower volume, far higher intent</h4>
-          <p>Despite the drop in raw traffic, users who click through after an AI interaction arrive with higher conviction and more context — converting at up to <strong>3× the rate</strong> of traditional search visitors. In the AI era, visibility is measured not by clicks alone, but by whether your brand is <strong>included, cited, and recommended</strong> within the AI's response layer. The businesses that optimise for this now will own the next decade of search.</p>
+          <p>Users who arrive via an AI citation convert at up to <strong>3× the rate</strong> of traditional search visitors — they arrive with more context and higher intent. In the AI era, visibility means being <strong>included, cited, and recommended</strong> within AI responses. The businesses that optimise for this now will own the next decade of search.</p>
         </div>
       </div>
     </div>
@@ -1217,29 +1539,32 @@
       <p class="section-subtitle">We analyze your website using the same techniques that AI assistants use to understand and recommend businesses.</p>
       <div class="steps">
         <div class="step">
-          <div class="step-icon">
-            <!-- Globe with pointer/link icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/><circle cx="19" cy="19" r="3" fill="currentColor" stroke="none" opacity="0.2"/><path d="M18 18l2 2" stroke-width="2.5"/></svg>
+          <div class="step-header">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/><circle cx="19" cy="19" r="3" fill="currentColor" stroke="none" opacity="0.2"/><path d="M18 18l2 2" stroke-width="2.5"/></svg>
+            </div>
+            <div class="step-number">01</div>
           </div>
-          <div class="step-number">01</div>
           <h3>Submit your website</h3>
           <p>Enter your URL and a few details about your business. The more context you provide, the more tailored your report will be.</p>
         </div>
         <div class="step">
-          <div class="step-icon">
-            <!-- Brain / neural network icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A3.5 3.5 0 0 0 6 5.5c0 .59.15 1.15.42 1.63A3.5 3.5 0 0 0 4 10.5c0 1.13.54 2.14 1.38 2.78A3.5 3.5 0 0 0 4 16a3.5 3.5 0 0 0 3.5 3.5c.59 0 1.14-.15 1.63-.42A3.5 3.5 0 0 0 12 21a3.5 3.5 0 0 0 2.87-1.5c.49.27 1.04.42 1.63.42A3.5 3.5 0 0 0 20 16.42a3.5 3.5 0 0 0-1.38-2.64A3.5 3.5 0 0 0 20 10.5a3.5 3.5 0 0 0-2.42-3.37c.27-.48.42-1.04.42-1.63A3.5 3.5 0 0 0 14.5 2c-.59 0-1.14.15-1.63.42A3.49 3.49 0 0 0 12 2c-.37 0-.73.06-1.07.16A3.48 3.48 0 0 0 9.5 2z"/><path d="M12 2v19" opacity="0.3"/><path d="M4.5 13h15" opacity="0.3"/></svg>
+          <div class="step-header">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A3.5 3.5 0 0 0 6 5.5c0 .59.15 1.15.42 1.63A3.5 3.5 0 0 0 4 10.5c0 1.13.54 2.14 1.38 2.78A3.5 3.5 0 0 0 4 16a3.5 3.5 0 0 0 3.5 3.5c.59 0 1.14-.15 1.63-.42A3.5 3.5 0 0 0 12 21a3.5 3.5 0 0 0 2.87-1.5c.49.27 1.04.42 1.63.42A3.5 3.5 0 0 0 20 16.42a3.5 3.5 0 0 0-1.38-2.64A3.5 3.5 0 0 0 20 10.5a3.5 3.5 0 0 0-2.42-3.37c.27-.48.42-1.04.42-1.63A3.5 3.5 0 0 0 14.5 2c-.59 0-1.14.15-1.63.42A3.49 3.49 0 0 0 12 2c-.37 0-.73.06-1.07.16A3.48 3.48 0 0 0 9.5 2z"/><path d="M12 2v19" opacity="0.3"/><path d="M4.5 13h15" opacity="0.3"/></svg>
+            </div>
+            <div class="step-number">02</div>
           </div>
-          <div class="step-number">02</div>
           <h3>AI-powered analysis</h3>
           <p>We crawl your site, extract structured data, and evaluate your content against 25+ LLM-readiness criteria across 4 dimensions.</p>
         </div>
         <div class="step">
-          <div class="step-icon">
-            <!-- Dashboard / chart report icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/><rect x="12" y="13" width="3" height="5" rx="0.5" fill="currentColor" opacity="0.15"/><rect x="16" y="11" width="3" height="7" rx="0.5" fill="currentColor" opacity="0.15"/><line x1="12" y1="13" x2="15" y2="13"/><line x1="12" y1="18" x2="15" y2="18"/><line x1="16" y1="11" x2="19" y2="11"/><line x1="16" y1="18" x2="19" y2="18"/><circle cx="6" cy="14" r="1.5" fill="currentColor" opacity="0.2"/><path d="M6 17v1"/></svg>
+          <div class="step-header">
+            <div class="step-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/><rect x="12" y="13" width="3" height="5" rx="0.5" fill="currentColor" opacity="0.15"/><rect x="16" y="11" width="3" height="7" rx="0.5" fill="currentColor" opacity="0.15"/><line x1="12" y1="13" x2="15" y2="13"/><line x1="12" y1="18" x2="15" y2="18"/><line x1="16" y1="11" x2="19" y2="11"/><line x1="16" y1="18" x2="19" y2="18"/><circle cx="6" cy="14" r="1.5" fill="currentColor" opacity="0.2"/><path d="M6 17v1"/></svg>
+            </div>
+            <div class="step-number">03</div>
           </div>
-          <div class="step-number">03</div>
           <h3>Get your report</h3>
           <p>Receive a detailed assessment with scores, actionable recommendations, and a prioritized implementation roadmap directly to your email.</p>
         </div>
@@ -1252,27 +1577,100 @@
     <div class="section-inner">
       <div class="assessment-grid">
         <div class="assessment-info">
-          <div class="section-label">Free assessment</div>
-          <h2>Get your LLM-Readiness score</h2>
-          <p>Fill in the form and we'll analyze your website across four critical dimensions. Your personalized report will be delivered to your inbox within minutes.</p>
-          <ul class="info-list">
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-              <div><strong>Structure & Navigation</strong> &mdash; Site architecture, headings, internal linking, and URL hierarchy</div>
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-              <div><strong>Content Quality</strong> &mdash; Depth, specificity, authority signals, and educational value</div>
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-              <div><strong>Technical SEO</strong> &mdash; Schema.org markup, metadata, structured data, and crawlability</div>
-            </li>
-            <li>
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd"/></svg>
-              <div><strong>AI Preparation</strong> &mdash; LLM-specific optimization, citability, and content discoverability</div>
-            </li>
-          </ul>
+
+          <!-- Static state (hidden after submit) -->
+          <div id="assessmentInfoStatic">
+            <div class="section-label">Free assessment</div>
+            <h2>Get your LLM-Readiness score</h2>
+            <p>Fill in the form and we'll analyze your website across four critical dimensions. Your personalized report will be delivered to your inbox within minutes.</p>
+            <ul class="info-list">
+              <li>
+                <!-- Hierarchy / sitemap tree -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="4" r="2"/><circle cx="4" cy="20" r="2"/><circle cx="20" cy="20" r="2"/><path d="M12 6v6"/><path d="M12 12l-6.5 6"/><path d="M12 12l6.5 6"/></svg>
+                <div><strong>Structure & Navigation</strong> &mdash; Site architecture, headings, internal linking, and URL hierarchy</div>
+              </li>
+              <li>
+                <!-- Pen / content quality -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                <div><strong>Content Quality</strong> &mdash; Depth, specificity, authority signals, and educational value</div>
+              </li>
+              <li>
+                <!-- Code tags / technical -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <div><strong>Technical SEO</strong> &mdash; Schema.org markup, metadata, structured data, and crawlability</div>
+              </li>
+              <li>
+                <!-- CPU chip / AI -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3"/><path d="M15 1v3"/><path d="M9 20v3"/><path d="M15 20v3"/><path d="M20 9h3"/><path d="M20 14h3"/><path d="M1 9h3"/><path d="M1 14h3"/></svg>
+                <div><strong>AI Preparation</strong> &mdash; LLM-specific optimization, citability, and content discoverability</div>
+              </li>
+            </ul>
+            <p style="font-size: 12px; color: #84a295; margin-top: 14px; line-height: 1.5;">* Free version analyses up to 200 pages per site. Larger sites will be assessed based on the first 200 URLs discovered.</p>
+          </div>
+
+          <!-- Analysis waiting panel (shown after submit) -->
+          <div class="analysis-panel" id="analysisPanel">
+
+            <!-- Domain being scanned -->
+            <div class="analysis-domain-badge">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              Scanning: <strong id="analysisDomainText">yoursite.com</strong>
+            </div>
+
+            <h2 class="analysis-heading">Analyzing your website</h2>
+            <p class="analysis-sub">Our AI is examining your site right now. Here's what we're learning about the AI visibility landscape while you wait.</p>
+
+            <!-- Radar scan visual -->
+            <div class="radar-wrap">
+              <div class="radar-ring r1"></div>
+              <div class="radar-ring r2"></div>
+              <div class="radar-ring r3"></div>
+              <div class="radar-pulse p1"></div>
+              <div class="radar-pulse p2"></div>
+              <div class="radar-pulse p3"></div>
+              <div class="radar-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+              </div>
+            </div>
+
+            <!-- Current step label -->
+            <div class="analysis-step-label" id="analysisStepLabel">
+              <span class="analysis-step-dot"></span>
+              <span id="analysisStepText">Initializing...</span>
+            </div>
+
+            <!-- Rotating insight cards -->
+            <div class="insight-section-label">While you wait — AI search in numbers</div>
+            <div class="insight-cards-wrap" id="insightCardsWrap">
+              <div class="insight-card active" data-card="0">
+                <div class="insight-stat">6/10</div>
+                <div class="insight-text">Google searches now show an AI-generated answer on the results page — cutting click-through rates by up to 50%.</div>
+                <div class="insight-source">SparkToro / Rand Fishkin, 2024</div>
+              </div>
+              <div class="insight-card" data-card="1">
+                <div class="insight-stat">2–7</div>
+                <div class="insight-text">domains are cited in a typical AI response, versus 10 blue links in traditional search. Getting cited is now a zero-sum game.</div>
+                <div class="insight-source">Search Engine Journal, 2025</div>
+              </div>
+              <div class="insight-card" data-card="2">
+                <div class="insight-stat">3×</div>
+                <div class="insight-text">higher conversion rate for visitors who arrive via an AI citation. They arrive with more context and higher intent than classic search traffic.</div>
+                <div class="insight-source">Gartner Digital Commerce, 2025</div>
+              </div>
+              <div class="insight-card" data-card="3">
+                <div class="insight-stat">−25%</div>
+                <div class="insight-text">expected drop in traditional organic search traffic by 2026 as users shift to conversational AI tools for research and discovery.</div>
+                <div class="insight-source">Gartner, 2024</div>
+              </div>
+            </div>
+            <div class="insight-dots" id="insightDots">
+              <div class="insight-dot active" data-dot="0"></div>
+              <div class="insight-dot" data-dot="1"></div>
+              <div class="insight-dot" data-dot="2"></div>
+              <div class="insight-dot" data-dot="3"></div>
+            </div>
+
+          </div>
         </div>
 
         <div>
@@ -1292,7 +1690,8 @@
               </div>
               <div class="form-group">
                 <label for="url">Website URL</label>
-                <input type="url" id="url" name="url" placeholder="https://www.yourwebsite.com" required>
+                <input type="text" id="url" name="url" placeholder="https://www.yourwebsite.com" required>
+                <small class="field-error" id="urlError">Please include the protocol — e.g. <strong>https://</strong>mindalizer.com</small>
               </div>
               <div class="form-row">
                 <div class="form-group">
@@ -1396,45 +1795,57 @@
       <p class="section-subtitle">A comprehensive assessment scored across four dimensions, with specific recommendations for each page of your website.</p>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <div class="feature-header">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h4>LLM-Readiness Score</h4>
           </div>
-          <h4>LLM-Readiness Score</h4>
           <p>A clear score out of 100, broken down across Structure, Content, Technical SEO, and AI Preparation dimensions.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          <div class="feature-header">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <h4>Page-by-page plan</h4>
           </div>
-          <h4>Page-by-page plan</h4>
           <p>Specific recommendations for each page of your site, including content rewrites, metadata, and structured data additions.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+          <div class="feature-header">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg>
+            </div>
+            <h4>Company profile</h4>
           </div>
-          <h4>Company profile</h4>
           <p>We extract and organize your company data the way AI models see it, highlighting gaps in your business information.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <div class="feature-header">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h4>Strengths & weaknesses</h4>
           </div>
-          <h4>Strengths & weaknesses</h4>
           <p>Clear identification of what your site does well and where the critical gaps are, prioritized by impact.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <div class="feature-header">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <h4>Implementation roadmap</h4>
           </div>
-          <h4>Implementation roadmap</h4>
           <p>A phased action plan with Quick Wins (1-2 weeks), Medium-term (1-3 months), and Strategic (3-6 months) recommendations.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div class="feature-header">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <h4>Email delivery</h4>
           </div>
-          <h4>Email delivery</h4>
           <p>Your complete report is delivered as a beautifully formatted email you can share with your team or developers.</p>
         </div>
       </div>
@@ -1506,6 +1917,69 @@
     // Chat webhook URL
     var WEBHOOK_URL = 'https://mindalizerai.app.n8n.cloud/webhook/llm-readiness-v6/chat';
 
+    // ── Analysis panel ──
+    var analysisStepLabels = [
+      'Connecting to analysis engine...',
+      'Scraping website content...',
+      'Extracting links & site structure...',
+      'Mapping all site pages...',
+      'Running AI-powered analysis...',
+      'Generating report & sending email...'
+    ];
+
+    function showAnalysisPanel(url) {
+      var domain = url.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+      var staticEl = document.getElementById('assessmentInfoStatic');
+      var panelEl = document.getElementById('analysisPanel');
+      var domainText = document.getElementById('analysisDomainText');
+
+      staticEl.classList.add('hidden');
+      domainText.textContent = domain;
+      panelEl.classList.add('active');
+
+      showInsightCard(0);
+      startInsightRotation();
+    }
+
+function updateAnalysisStep(index) {
+      var stepText = document.getElementById('analysisStepText');
+      if (stepText && index < analysisStepLabels.length) {
+        stepText.textContent = analysisStepLabels[index];
+      }
+    }
+
+    // ── Insight card rotation ──
+    var insightCardIndex = 0;
+    var insightInterval = null;
+
+    function showInsightCard(index) {
+      var cards = document.querySelectorAll('.insight-card');
+      var dots = document.querySelectorAll('.insight-dot');
+      insightCardIndex = ((index % 4) + 4) % 4;
+      for (var i = 0; i < cards.length; i++) {
+        cards[i].classList.remove('active');
+        dots[i].classList.remove('active');
+      }
+      cards[insightCardIndex].classList.add('active');
+      dots[insightCardIndex].classList.add('active');
+    }
+
+    function startInsightRotation() {
+      if (insightInterval) clearInterval(insightInterval);
+      insightInterval = setInterval(function() {
+        showInsightCard(insightCardIndex + 1);
+      }, 7000);
+    }
+
+    // Insight dot click handlers
+    document.querySelectorAll('.insight-dot').forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        clearInterval(insightInterval);
+        showInsightCard(parseInt(dot.getAttribute('data-dot')));
+        startInsightRotation();
+      });
+    });
+
     // Generate session ID
     function generateSessionId() {
       return 'web-' + Date.now().toString(36) + '-' + Math.random().toString(36).substr(2, 9);
@@ -1538,6 +2012,9 @@
         var stepText = steps[index].textContent.trim().split('\n')[0].trim();
         chatStatus.textContent = stepText + '...';
       }
+
+      // Sync left-panel step label
+      updateAnalysisStep(index);
 
       // Update progress bar
       var pct = Math.min(((index + 0.5) / totalSteps) * 100, 100);
@@ -1575,6 +2052,23 @@
       // Clear all pending timers
       progressState.stepTimers.forEach(function(t) { clearTimeout(t); });
       progressState.stepTimers = [];
+
+      // Update left panel to completion state
+      var dot = document.querySelector('.analysis-step-dot');
+      var stepTextEl = document.getElementById('analysisStepText');
+      if (dot) {
+        dot.style.animation = 'none';
+        dot.style.background = '#2e7d32';
+      }
+      if (stepTextEl) {
+        stepTextEl.textContent = 'Analysis complete';
+        stepTextEl.style.color = '#2e7d32';
+      }
+      var labelEl = document.getElementById('analysisStepLabel');
+      if (labelEl) labelEl.style.color = '#2e7d32';
+
+      // Stop insight card rotation
+      if (insightInterval) clearInterval(insightInterval);
     }
 
     // Form submission
@@ -1597,6 +2091,18 @@
       var goal = document.getElementById('goal').value;
       var context = document.getElementById('context').value.trim();
 
+      // Validate URL protocol
+      var urlInput = document.getElementById('url');
+      var urlError = document.getElementById('urlError');
+      if (!/^https?:\/\//i.test(url)) {
+        urlInput.classList.add('input-error');
+        urlError.classList.add('visible');
+        urlInput.focus();
+        return;
+      }
+      urlInput.classList.remove('input-error');
+      urlError.classList.remove('visible');
+
       // Build structured message
       var message = url;
       message += '\n\n---CONTEXT---';
@@ -1610,6 +2116,9 @@
       // Disable form
       submitBtn.disabled = true;
       submitBtn.textContent = 'Analyzing...';
+
+      // Show analysis panel on the left
+      showAnalysisPanel(url);
 
       // Show response area
       chatResponse.classList.add('active');
